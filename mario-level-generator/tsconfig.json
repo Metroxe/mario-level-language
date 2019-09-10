@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "module": "commonjs",
+    "declaration": true,
+    "target": "es2017",
+    "lib": ["es7", "es2015", "dom"],
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist"
+  ]
+}
