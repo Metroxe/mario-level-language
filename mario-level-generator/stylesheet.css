@@ -1,3 +1,15 @@
 #level {
     background-color: #5c94fc;
 }
+
+.empty {
+    background-color: #5c94fc;
+    width: 10px;
+    height: 10px;
+}
+
+.ground {
+    background-color: #7b411a;
+
+}
+
