@@ -1,4 +1,4 @@
-import {IElement} from "./index";
+import {IElement} from "shared";
 
 function injectHTML(elements: IElement[]): string {
 	let x = 5;
