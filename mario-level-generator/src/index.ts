@@ -24,7 +24,7 @@ async function generateImage(elements: IElement[]): Promise<Buffer> {
 	}
 
 	// input HTML here
-	await page.setContent(`<head><style>${css}</style></head><body></body><div id='level'>${injectHTML(elements)}</div></body>`);
+	await page.setContent(`<head><style>${css}</style></head><body style='margin: 0'></body><div id='level'>${injectHTML(elements)}</div></body>`);
 
 	// take screenshot
 	const rect: any = await page.evaluate(selector => {

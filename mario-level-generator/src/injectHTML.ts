@@ -1,54 +1,57 @@
-import {IElement} from "shared";
+import {IElement, Sprite} from "shared";
+
+import {createGround, testElements} from "./example";
+
+const DIMENSION_RATIO = 10;
 
 function injectHTML(elements: IElement[]): string {
-	let x = 5;
-	let y = 5;
+	// for testing
+	createGround();
+	elements = testElements;
+	console.log(elements);
 
-	let test = createMatrix(x, y);
+	// start of real code
+	let max = grabMax(elements);
 
+	let html = `<div style="width: ${max.x + DIMENSION_RATIO}; height: ${max.y};">`;
 
+	for (let element of elements) {
+		html += drawSprite(element);
+	}
 
-	let html = drawMatrix(test);
-
+	html += '</div>';
 	return html;
 }
 
-function drawMatrix(matrix) {
-	let htmlString = '';
-
-	for (let x = 0; x < matrix.length; x++) {
-		for (let y = 0; y < matrix.length; y++) {
-			switch (matrix[x][y]) {
-				case 0:
-				default:
-					htmlString += '<div class=".empty">&nbsp;</div>'
-			}
-		}
+function drawSprite(element: IElement) {
+	let x = element.x * DIMENSION_RATIO;
+	let y = element.y * DIMENSION_RATIO;
+	switch (element.sprite) {
+		case Sprite.GROUND:
+			return `<div class="ground" style="left:${x}px; top:${y - DIMENSION_RATIO}px;"></div>`;
+		default:
+			return ``;
 	}
-
-	return htmlString;
 }
 
 /**
- * creates matrix given x and y
- * @param x
- * @param y
+ * Grabs the max x and y pos of the elements
+ * @param elements
  */
-function createMatrix(x: number, y: number) {
-	const matrix = Array(x);
-	// all start with -1
-	matrix.fill(Array(y).fill(-1));
+function grabMax(elements: IElement[]) {
+	let maxX = 0;
+	let maxY = 0;
 
-	return matrix;
-}
+	for (let element of elements) {
+		if (element.x > maxX) {
+			maxX = element.x;
+		}
+		if (element.y > maxY) {
+			maxY = element.y;
+		}
+	}
 
-
-function searchMatrix(x: number, y: number) {
-
-}
-
-function replaceMatrix(x: number, y: number, matrix, add) {
-	matrix[x][y] = add;
+	return {x: maxX * DIMENSION_RATIO, y: maxY * DIMENSION_RATIO};
 }
 
 export default injectHTML;
