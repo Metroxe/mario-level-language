@@ -3,7 +3,8 @@ import injectHTML from "./injectHTML";
 import {promisify} from 'util';
 import fs from 'fs';
 const readFileAsync = promisify(fs.readFile);
-import {IElement} from "shared";
+import {IElement, Sprite} from "shared";
+import spriteSheet from "./spritesheet";
 
 let css: string;
 
@@ -24,10 +25,20 @@ async function generateImage(elements: IElement[]): Promise<Buffer> {
 	}
 
 	// input HTML here
-	await page.setContent(`<head><style>${css}</style></head><body style='margin: 0'></body><div id='level'>${injectHTML(elements)}</div></body>`);
+	await page.setContent(`<head><style>${css}</style></head><body style='margin: 0'>
+	<div id='level'></div>
+	<script>
+		const elements = ${JSON.stringify(elements)};
+		const injectHTML = ${String(injectHTML)};
+		const se = ${JSON.stringify(Sprite)};
+		const spriteSheet = "${spriteSheet}";
+		injectHTML(elements, se, spriteSheet);
+	</script>
+	</body>`);
 
 	// take screenshot
 	const rect: any = await page.evaluate(selector => {
+		// injectHTML(elements, document);
 		const element = document.querySelector(selector);
 		const {x, y, width, height} = element.getBoundingClientRect();
 		return {left: x, top: y, width, height, id: element.id};
@@ -47,4 +58,5 @@ async function generateImage(elements: IElement[]): Promise<Buffer> {
 
 generateImage([]).then(() => {
 	console.log("done");
+	process.exit();
 });
