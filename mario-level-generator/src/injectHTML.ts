@@ -13,11 +13,32 @@ async function injectHTML(elements: IElement[], SpriteEnum: typeof Sprite, sprit
 	});
 	blockSprite.src = spriteSheet;
 	const SPRITE = {
-		BRICK: {
-			sx: 17*DIMENSION_RATIO,
-			sy: 7*DIMENSION_RATIO,
+		GROUND: {
+			sx: 0 * DIMENSION_RATIO,
+			sy: 0 * DIMENSION_RATIO,
 			sw: DIMENSION_RATIO,
 			sh: DIMENSION_RATIO,
+			image: blockSprite
+		},
+		QUESTION_MARK: {
+			sx: 24 * DIMENSION_RATIO,
+			sy: 0 * DIMENSION_RATIO,
+			sw: DIMENSION_RATIO,
+			sh: DIMENSION_RATIO,
+			image: blockSprite
+		},
+		BRICK: {
+			sx: 1 * DIMENSION_RATIO,
+			sy: 0 * DIMENSION_RATIO,
+			sw: DIMENSION_RATIO,
+			sh: DIMENSION_RATIO,
+			image: blockSprite
+		},
+		PIPE: {
+			sx: 0 * DIMENSION_RATIO,
+			sy: 8 * DIMENSION_RATIO,
+			sw: 2 * DIMENSION_RATIO,
+			sh: 2 * DIMENSION_RATIO,
 			image: blockSprite
 		}
 	};
@@ -27,27 +48,32 @@ async function injectHTML(elements: IElement[], SpriteEnum: typeof Sprite, sprit
 		{
 			x: 0,
 			y: 4,
-			sprite: SpriteEnum.BRICK
+			sprite: SpriteEnum.GROUND
 		},
 		{
 			x: 1,
 			y: 4,
-			sprite: SpriteEnum.BRICK
+			sprite: SpriteEnum.GROUND
 		},
 		{
 			x: 2,
 			y: 4,
-			sprite: SpriteEnum.BRICK
+			sprite: SpriteEnum.GROUND
 		},
 		{
 			x: 3,
 			y: 4,
-			sprite: SpriteEnum.BRICK
+			sprite: SpriteEnum.GROUND
 		},
 		{
 			x: 4,
 			y: 4,
-			sprite: SpriteEnum.BRICK
+			sprite: SpriteEnum.GROUND
+		},
+		{
+			x: 2,
+			y: 2,
+			sprite: SpriteEnum.QUESTION_MARK
 		}
 	];
 	elements = testElements;
@@ -68,14 +94,19 @@ async function injectHTML(elements: IElement[], SpriteEnum: typeof Sprite, sprit
 	 */
 	function draw() {
 		for (let element of elements) {
+			let sprite;
 			switch (element.sprite) {
-				case SpriteEnum.BRICK:
-					let sprite = SPRITE.BRICK;
-					context.drawImage(sprite.image, sprite.sx, sprite.sy, sprite.sw, sprite.sh, element.x * DIMENSION_RATIO, element.y * DIMENSION_RATIO, DIMENSION_RATIO, DIMENSION_RATIO);
+				case SpriteEnum.GROUND:
+					sprite = SPRITE.GROUND;
+					break;
+				case SpriteEnum.QUESTION_MARK:
+					sprite = SPRITE.QUESTION_MARK;
 					break;
 				default:
 					break;
 			}
+			context.drawImage(sprite.image, sprite.sx, sprite.sy, sprite.sw, sprite.sh, element.x * DIMENSION_RATIO, element.y * DIMENSION_RATIO, DIMENSION_RATIO, DIMENSION_RATIO);
+
 		}
 	}
 
