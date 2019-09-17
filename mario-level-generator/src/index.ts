@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer";
+import puppeteer, {Browser} from "puppeteer";
 import injectHTML from "./injectHTML";
 import {promisify} from 'util';
 import fs from 'fs';
@@ -53,10 +53,8 @@ async function generateImage(elements: IElement[]): Promise<Buffer> {
 	})) as Buffer;
 
 	await page.close();
+	await browser.close();
 	return buffer
 }
 
-generateImage([]).then(() => {
-	console.log("done");
-	process.exit();
-});
+export default generateImage;
