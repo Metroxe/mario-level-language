@@ -3,10 +3,23 @@ import level1_1 from "./mockLevels/level1_1";
 import examples from "./mockLevels/examples";
 
 export enum Sprite {
-	GROUND,
-	QUESTION_MARK,
-	BRICK,
-	PIPE,
+	GROUND = "GROUND",
+	QUESTION_MARK = "QUESTION_MARK",
+	BRICK = "BRICK",
+	PIPE_TR = "PIPE_TR",
+	PIPE_TL = "PIPE_TL",
+	PIPE_BR = "PIPE_BR",
+	PIPE_BL = "PIPE_BL",
+	CLOUD_TR = "CLOUD_TR",
+	CLOUD_TM = "CLOUD_TM",
+	CLOUD_TL = "CLOUD_TL",
+	CLOUD_BR = "CLOUD_BR",
+	CLOUD_BM = "CLOUD_BM",
+	CLOUD_BL = "CLOUD_BL",
+	BUSH_L = "BUSH_L",
+	BUSH_M = "BUSH_M",
+	BUSH_R = "BUSH_R",
+	DIAMOND_BRICK = "DIAMOND_BRICK"
 }
 
 export interface IElement {
