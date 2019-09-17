@@ -1,0 +1,43 @@
+FROM node:10.16.3-alpine
+
+# installs
+# shared
+WORKDIR /usr/src/shared
+COPY ./shared/package*.json ./
+RUN npm install --only=production
+
+# frontend
+WORKDIR /usr/src/frontend
+COPY ./frontend/package*.json ./
+RUN npm remove shared
+RUN npm install --only=production
+
+# backend
+WORKDIR /usr/src/backend
+COPY ./backend/package*.json ./
+RUN npm remove compiler
+RUN npm remove shared
+RUN npm install --only=production
+
+# compiling
+#shared
+WORKDIR /usr/src/shared
+COPY ./shared/ ./
+RUN npm run build
+
+#frontend
+WORKDIR /usr/src/frontend
+RUN npm install --save ../shared
+COPY ./frontend/ ./
+RUN npm run build
+
+#backend
+WORKDIR /usr/src/backend
+RUN npm install --save ../shared
+RUN npm install --save ../compiler
+COPY ./backend/ ./
+RUN npm run build
+
+EXPOSE 8080
+
+CMD ["npm", "run", "start"]

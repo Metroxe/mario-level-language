@@ -11,7 +11,6 @@ function compile(input: string): {elements: IElement[], err?: TypeErr[]} {
 	if (err && err.length < 1) {
 		return {elements: [], err}
 	}
-
 	const elements = evaluate(nodes);
 	return {elements};
 }
