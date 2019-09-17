@@ -1,3 +1,5 @@
+export type ParsedNode = any;
+
 function parse(tokens: string[]) : string[] {
 	return [];
 }
