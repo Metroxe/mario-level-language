@@ -17,8 +17,9 @@ const port = process.env.PORT ? process.env.PORT : 8080;
 	require("./routes");
 
 	// website
+	app.use(express.static(path.join(`${__dirname}/../../frontend`, 'build')));
 	app.get('/*', function (req, res) {
-		res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+		res.sendFile(path.join(__dirname, '../../frontend/build', 'index.html'));
 	});
 
 	app.listen(port, () => {
