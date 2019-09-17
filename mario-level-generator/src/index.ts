@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer";
+import puppeteer, {Browser} from "puppeteer";
 import injectHTML from "./injectHTML";
 import {promisify} from 'util';
 import fs from 'fs';
@@ -49,14 +49,11 @@ async function generateImage(elements: IElement[]): Promise<Buffer> {
 		type: "png",
 		clip: {x: rect.left, y: rect.top, width: rect.width, height: rect.height},
 		omitBackground: true,
-		path: "./test.png"
 	})) as Buffer;
 
 	await page.close();
+	await browser.close();
 	return buffer
 }
 
-generateImage([]).then(() => {
-	console.log("done");
-	process.exit();
-});
+export default generateImage;

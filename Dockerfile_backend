@@ -1,5 +1,16 @@
 FROM node:10.16.3-alpine
 
+#Chromium
+ENV CHROME_BIN="/usr/bin/chromium-browser" \
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
+RUN set -x \
+    && apk update \
+    && apk upgrade \
+    && apk add --no-cache \
+    udev \
+    ttf-freefont \
+    chromium
+
 # installs
 # shared
 WORKDIR /usr/src/shared
@@ -9,6 +20,12 @@ RUN npm install --only=production
 # compiler
 WORKDIR /usr/src/compiler
 COPY ./compiler/package*.json ./
+RUN npm remove shared
+RUN npm install --only=production
+
+# mario-level-generator
+WORKDIR /usr/src/mario-level-generator
+COPY ./mario-level-generator/package*.json ./
 RUN npm remove shared
 RUN npm install --only=production
 
@@ -31,10 +48,16 @@ WORKDIR /usr/src/shared
 COPY ./shared/ ./
 RUN npm run build
 
-#frontend
+#compiler
 WORKDIR /usr/src/compiler
 RUN npm install --save ../shared
 COPY ./compiler/ ./
+RUN npm run build
+
+#mario-level-generator
+WORKDIR /usr/src/mario-level-generator
+RUN npm install --save ../shared
+COPY ./mario-level-generator/ ./
 RUN npm run build
 
 #frontend
@@ -47,6 +70,7 @@ RUN npm run build
 WORKDIR /usr/src/backend
 RUN npm install --save ../shared
 RUN npm install --save ../compiler
+RUN npm install --save ../mario-level-generator
 COPY ./backend/ ./
 RUN npm run build
 
