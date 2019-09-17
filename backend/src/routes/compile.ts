@@ -7,6 +7,16 @@ app.post("/compile", async (req, res) => {
 		res.sendStatus(401);
 		return;
 	}
-	const elements = compile(req.body.input);
-	const image = await generateImage(elements);
+	const compiled = compile(req.body.input);
+	if (compiled.err && compiled.err.length > 0) {
+		res.sendStatus(500);
+		return;
+	}
+	const image = await generateImage(compiled.elements);
+	res.writeHead(200, {
+		'Content-Type': "image/png",
+		'Content-Length': image.length
+	});
+	res.status(200);
+	res.end(image);
 });

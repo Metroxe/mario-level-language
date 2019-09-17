@@ -49,7 +49,6 @@ async function generateImage(elements: IElement[]): Promise<Buffer> {
 		type: "png",
 		clip: {x: rect.left, y: rect.top, width: rect.width, height: rect.height},
 		omitBackground: true,
-		path: "./test.png"
 	})) as Buffer;
 
 	await page.close();

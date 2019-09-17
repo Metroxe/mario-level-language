@@ -1,4 +1,4 @@
-FROM node:10.16.3-alpine\
+FROM node:10.16.3-alpine
 
 #Chromium
 ENV CHROME_BIN="/usr/bin/chromium-browser" \
@@ -9,7 +9,7 @@ RUN set -x \
     && apk add --no-cache \
     udev \
     ttf-freefont \
-    chromium \
+    chromium
 
 # installs
 # shared
