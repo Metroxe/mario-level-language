@@ -9,6 +9,7 @@ cd ../mario-level-generator || exit
 rm -rf ./node_modules/shared
 npm remove shared
 npm install ../shared
+npm run build
 
 # compiler
 cd ../compiler || exit
@@ -27,6 +28,10 @@ npm install ../shared
 cd ../backend || exit
 rm -rf ./node_modules/shared
 npm remove shared
+npm install ../shared
+rm -rf ./node_modules/mario-level-generator
+npm remove mario-level-generator
+npm install ../mario-level-generator
 rm -rf ./node_modules/compiler
 npm remove compiler
 npm install ../compiler
