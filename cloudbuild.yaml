@@ -1,0 +1,13 @@
+steps:
+  # build the container images
+  # backend
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/mario-level-language/backend-$BRANCH_NAME', '--file', './Dockerfile_backend', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/mario-level-language/backend-$BRANCH_NAME']
+  # Deploy container image to Cloud Run
+  # backend
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['beta', 'run', 'deploy', 'backend-$BRANCH_NAME', '--image', 'gcr.io/mario-level-language/backend-$BRANCH_NAME:latest', '--region', 'us-central1', '--platform', 'managed']
+images:
+  - gcr.io/mario-level-language/backend-$BRANCH_NAME:latest

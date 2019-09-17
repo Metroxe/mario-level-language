@@ -6,6 +6,12 @@ WORKDIR /usr/src/shared
 COPY ./shared/package*.json ./
 RUN npm install --only=production
 
+# compiler
+WORKDIR /usr/src/compiler
+COPY ./compiler/package*.json ./
+RUN npm remove shared
+RUN npm install --only=production
+
 # frontend
 WORKDIR /usr/src/frontend
 COPY ./frontend/package*.json ./
@@ -23,6 +29,12 @@ RUN npm install --only=production
 #shared
 WORKDIR /usr/src/shared
 COPY ./shared/ ./
+RUN npm run build
+
+#frontend
+WORKDIR /usr/src/compiler
+RUN npm install --save ../shared
+COPY ./compiler/ ./
 RUN npm run build
 
 #frontend
