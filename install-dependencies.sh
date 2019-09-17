@@ -16,3 +16,8 @@ rm -rf ./node_modules/shared
 npm remove shared
 npm install ../shared
 
+# front end
+cd ../frontend || exit
+rm -rf ./node_modules/shared
+npm remove shared
+npm install ../shared

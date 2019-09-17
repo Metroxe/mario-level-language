@@ -1,3 +1,7 @@
+import justGround from "./mockLevels/justGround";
+import level1_1 from "./mockLevels/level1_1";
+import examples from "./mockLevels/examples";
+
 export enum Sprite {
 	GROUND,
 	QUESTION_MARK,
@@ -10,3 +14,9 @@ export interface IElement {
 	y: number,
 	sprite: Sprite
 }
+
+export const levels = {
+	justGround,
+	level1_1,
+	examples,
+};
