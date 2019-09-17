@@ -1,0 +1,23 @@
+{
+  "name": "compiler",
+  "version": "1.0.0",
+  "description": "compiler for mario-dsl",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Metroxe/mario-dsl.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Metroxe/mario-dsl/issues"
+  },
+  "homepage": "https://github.com/Metroxe/mario-dsl#readme",
+  "dependencies": {
+    "shared": "file:../shared",
+    "typescript": "^3.6.2"
+  }
+}

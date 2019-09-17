@@ -1,0 +1,26 @@
+{
+  "name": "mario-level-generator",
+  "version": "1.0.0",
+  "description": "level generator for mario",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Metroxe/mario-dsl.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Metroxe/mario-dsl/issues"
+  },
+  "homepage": "https://github.com/Metroxe/mario-dsl#readme",
+  "dependencies": {
+    "@types/puppeteer": "^1.19.1",
+    "puppeteer": "^1.19.0",
+    "shared": "file:../shared",
+    "typescript": "^3.6.2"
+  }
+}

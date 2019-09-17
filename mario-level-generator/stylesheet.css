@@ -1,0 +1,12 @@
+#level {
+    background-color: #5c94fc;
+}
+
+.ground {
+    background-color: #7b411a;
+    width: 10px;
+    height: 10px;
+    display: block;
+    position: absolute;
+}
+

@@ -1,0 +1,22 @@
+{
+  "name": "shared",
+  "version": "1.0.0",
+  "description": "shared exports",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Metroxe/mario-dsl.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Metroxe/mario-dsl/issues"
+  },
+  "homepage": "https://github.com/Metroxe/mario-dsl#readme",
+  "dependencies": {
+    "typescript": "^3.6.2"
+  }
+}
