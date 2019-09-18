@@ -1,8 +1,6 @@
-import {ParsedNode} from "./parse";
-
 export type TypeErr = {message: string}
 
-function typeCheck(parsedNode: ParsedNode): TypeErr[]  {
+function typeCheck(parsedNode: string[][]): TypeErr[]  {
 	return []
 }
 

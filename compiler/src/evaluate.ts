@@ -1,7 +1,6 @@
-import {ParsedNode} from "./parse";
 import {IElement} from "shared";
 
-function evaluate(nodes: ParsedNode): IElement[] {
+function evaluate(nodes: string[][]): IElement[] {
 	return []
 }
 
