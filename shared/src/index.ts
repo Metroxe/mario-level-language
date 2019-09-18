@@ -19,7 +19,9 @@ export enum Sprite {
 	BUSH_L = "BUSH_L",
 	BUSH_M = "BUSH_M",
 	BUSH_R = "BUSH_R",
-	DIAMOND_BRICK = "DIAMOND_BRICK"
+	DIAMOND_BRICK = "DIAMOND_BRICK",
+	FLAG_BODY = "FLAG_BODY",
+	FLAG_TOP = "FLAG_TOP"
 }
 
 export interface IElement {
