@@ -202,6 +202,16 @@ async function injectHTML(elements: IElement[], SpriteEnum: typeof Sprite, sprit
 			x: 0,
 			y: 2,
 			sprite: SpriteEnum.BRICK
+		},
+		{
+			x: 5,
+			y: 2,
+			sprite: SpriteEnum.FLAG_TOP
+		},
+		{
+			x: 5,
+			y: 3,
+			sprite: SpriteEnum.FLAG_BODY
 		}
 	];
 	elements = testElements;
