@@ -12,11 +12,6 @@ app.post("/compile", async (req, res) => {
 		res.status(500).send(compiled.err);
 		return;
 	}
-	const image = await generateImage(compiled.elements);
-	res.writeHead(200, {
-		'Content-Type': "image/png",
-		'Content-Length': image.length
-	});
-	res.status(200);
-	res.end(image);
+	const base64 = await generateImage(compiled.elements);
+	res.status(200).send(base64);
 });
