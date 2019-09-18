@@ -9,7 +9,7 @@ app.post("/compile", async (req, res) => {
 	}
 	const compiled = compile(req.body.input);
 	if (compiled.err && compiled.err.length > 0) {
-		res.sendStatus(500);
+		res.status(500).send(compiled.err);
 		return;
 	}
 	const image = await generateImage(compiled.elements);
