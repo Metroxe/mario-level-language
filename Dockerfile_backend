@@ -54,16 +54,16 @@ RUN npm install --save ../shared
 COPY ./compiler/ ./
 RUN npm run build
 
-#mario-level-generator
-WORKDIR /usr/src/mario-level-generator
-RUN npm install --save ../shared
-COPY ./mario-level-generator/ ./
-RUN npm run build
-
 #frontend
 WORKDIR /usr/src/frontend
 RUN npm install --save ../shared
 COPY ./frontend/ ./
+RUN npm run build
+
+#mario-level-generator
+WORKDIR /usr/src/mario-level-generator
+RUN npm install --save ../shared
+COPY ./mario-level-generator/ ./
 RUN npm run build
 
 #backend

@@ -80,6 +80,14 @@ async function injectHTML(elements: IElement[], SpriteEnum: typeof Sprite, sprit
 		DIAMOND_BRICK: {
 			sx: 0 * DIMENSION_RATIO,
 			sy: 1 * DIMENSION_RATIO
+		},
+		FLAG_TOP: {
+			sx: 16 * DIMENSION_RATIO,
+			sy: 8 * DIMENSION_RATIO,
+		},
+		FLAG_BODY: {
+			sx: 16 * DIMENSION_RATIO,
+			sy: 9 * DIMENSION_RATIO
 		}
 	};
 
@@ -107,6 +115,11 @@ async function injectHTML(elements: IElement[], SpriteEnum: typeof Sprite, sprit
 		},
 		{
 			x: 4,
+			y: 4,
+			sprite: SpriteEnum.GROUND
+		},
+		{
+			x: 5,
 			y: 4,
 			sprite: SpriteEnum.GROUND
 		},
@@ -189,6 +202,21 @@ async function injectHTML(elements: IElement[], SpriteEnum: typeof Sprite, sprit
 			x: 0,
 			y: 2,
 			sprite: SpriteEnum.BRICK
+		},
+		{
+			x: 5,
+			y: 1,
+			sprite: SpriteEnum.FLAG_TOP
+		},
+		{
+			x: 5,
+			y: 2,
+			sprite: SpriteEnum.FLAG_BODY
+		},
+		{
+			x: 5,
+			y: 3,
+			sprite: SpriteEnum.FLAG_BODY
 		}
 	];
 	elements = testElements;
