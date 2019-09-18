@@ -8,7 +8,7 @@ import spriteSheet from "./spritesheet";
 
 let css: string;
 
-async function generateImage(elements: IElement[]): Promise<Buffer> {
+async function generateImage(elements: IElement[]): Promise<string> {
 
 	// start puppeteer
 	const browser = await puppeteer.launch({
@@ -44,16 +44,16 @@ async function generateImage(elements: IElement[]): Promise<Buffer> {
 		return {left: x, top: y, width, height, id: element.id};
 	}, "#level");
 
-	const buffer = (await page.screenshot({
-		encoding: 'binary',
+	const base64 = await page.screenshot({
+		encoding: 'base64',
 		type: "png",
 		clip: {x: rect.left, y: rect.top, width: rect.width, height: rect.height},
 		omitBackground: true,
-	})) as Buffer;
+	});
 
 	await page.close();
 	await browser.close();
-	return buffer
+	return `data:image/png;base64,${base64}`
 }
 
 export default generateImage;
