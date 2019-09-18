@@ -12,6 +12,6 @@ app.post("/compile", async (req, res) => {
 		res.status(500).send(compiled.err);
 		return;
 	}
-	const base64 = await generateImage(compiled.elements);
+	const base64 = (await generateImage([compiled.elements]))[0];
 	res.status(200).send(base64);
 });
