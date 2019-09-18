@@ -205,8 +205,13 @@ async function injectHTML(elements: IElement[], SpriteEnum: typeof Sprite, sprit
 		},
 		{
 			x: 5,
-			y: 2,
+			y: 1,
 			sprite: SpriteEnum.FLAG_TOP
+		},
+		{
+			x: 5,
+			y: 2,
+			sprite: SpriteEnum.FLAG_BODY
 		},
 		{
 			x: 5,
