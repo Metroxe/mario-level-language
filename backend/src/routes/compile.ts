@@ -7,11 +7,11 @@ app.post("/compile", async (req, res) => {
 		res.sendStatus(401);
 		return;
 	}
-	const compiled = compile(req.body.input);
-	if (compiled.err && compiled.err.length > 0) {
-		res.status(500).send(compiled.err);
-		return;
+	try {
+		const {elements, err} = compile(req.body.input);
+		const base64 = (await generateImage([elements]))[0];
+		res.status(200).send({base64, err});
+	} catch {
+		res.sendStatus(500);
 	}
-	const base64 = (await generateImage([compiled.elements]))[0];
-	res.status(200).send(base64);
 });

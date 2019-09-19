@@ -5,14 +5,14 @@ import typeCheck, {TypeErr} from "./typeCheck";
 import evaluate from "./evaluate";
 
 function compile(input: string): {elements: IElement[], err?: TypeErr[]} {
-	const tokens = tokenize(input);
-	const nodes = parse(tokens);
-	const err = typeCheck(nodes);
-	if (err && err.length < 1) {
-		return {elements: [], err}
-	}
-	const elements = evaluate(nodes);
-	return {elements};
+	const uppercase = input.toUpperCase();
+	const tokens = tokenize(uppercase);
+	const statements = parse(tokens);
+	const [err, commands] = typeCheck(statements);
+	console.log("typeCheck", err, commands);
+	const elements = evaluate(commands);
+	console.log("evaluate", elements);
+	return {elements, err};
 }
 
 export default compile;

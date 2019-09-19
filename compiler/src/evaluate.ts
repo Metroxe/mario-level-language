@@ -1,7 +1,7 @@
-import {ParsedNode} from "./parse";
 import {IElement} from "shared";
+import {Command} from "./typeCheck";
 
-function evaluate(nodes: ParsedNode): IElement[] {
+function evaluate(commands: Command[]): IElement[] {
 	return []
 }
 
