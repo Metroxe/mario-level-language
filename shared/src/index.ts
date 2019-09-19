@@ -24,6 +24,29 @@ export enum Sprite {
 	FLAG_TOP = "FLAG_TOP"
 }
 
+export enum SpriteCommand {
+	GROUND = "GROUND",
+	QUESTION_MARK = "QUESTION_MARK",
+	BRICK = "BRICK",
+	DIAMOND_BRICK = "DIAMOND_BRICK",
+	PIPE = "PIPE",
+	CLOUD = "CLOUD",
+	BUSH = "BUSH",
+	FLAG = "FLAG",
+}
+
+export const drawableSprites: SpriteCommand[] = [
+	SpriteCommand.GROUND,
+	SpriteCommand.QUESTION_MARK,
+	SpriteCommand.BRICK,
+	SpriteCommand.DIAMOND_BRICK
+];
+
+export const scenarySprite: SpriteCommand[] = [
+	SpriteCommand.CLOUD,
+	SpriteCommand.BUSH,
+];
+
 export interface IElement {
 	x: number,
 	y: number,

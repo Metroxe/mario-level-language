@@ -11,7 +11,6 @@ function parse(tokens: string[]): string[][] {
 
 		// stop if not inside a variable
 		if (isSemiColon && !inVariable) {
-			console.log("adding", tokens.slice(start, i));
 			statements.push(tokens.slice(start, i));
 			start = i + 1;
 			continue;

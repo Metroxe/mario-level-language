@@ -1,6 +1,7 @@
 import {IElement} from "shared";
+import {Command} from "./typeCheck";
 
-function evaluate(nodes: string[][]): IElement[] {
+function evaluate(commands: Command[]): IElement[] {
 	return []
 }
 
