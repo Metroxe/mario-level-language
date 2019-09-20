@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, ButtonGroup, Card, CardBody, CardImg, Container, Input, Jumbotron, Spinner} from 'reactstrap';
+import {Alert, Button, ButtonGroup, Card, CardBody, CardImg, Container, Input, Jumbotron, Spinner} from 'reactstrap';
 import "./App.css";
 import axios from "axios";
 import {levels} from "shared";
@@ -9,6 +9,7 @@ const App: React.FC = () => {
 
 	const [image, updateImage] = useState();
 	const [input, updateInput] = useState(levels.examples.trim());
+	const [errors, updateErrors] = useState([]);
 	const [loading, updateLoading] = useState(false);
 
 
@@ -16,7 +17,8 @@ const App: React.FC = () => {
 		updateLoading(true);
 		try {
 			const {data} = await axios.post(`${'production' === process.env.NODE_ENV ? "" : "http://localhost:8080"}/compile`, {input});
-			updateImage(data);
+			updateImage(data.base64);
+			updateErrors(data.err)
 		} catch (err) {
 			alert("There was an error, check the console");
 			console.log(err);
@@ -50,6 +52,11 @@ const App: React.FC = () => {
 						<Button onClick={useMock(levels.level1_1.trim())}>Level 1-1</Button>
 					</ButtonGroup>
 					<Input className="mb-3" type="textarea" name="text" id="codeEntry" value={input} onChange={onChange}/>
+					{
+						errors.length > 0 && <Alert color="danger">
+							{errors.map(createError)}
+						</Alert>
+					}
 					<Button className="mr-1" onClick={getImage} disabled={loading} color="primary">
 						{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}
 						Make Image
@@ -69,5 +76,9 @@ const App: React.FC = () => {
 		</Container>
 	);
 };
+
+function createError({message, statement}: {message: string, statement: string}, i: number): JSX.Element {
+	return <React.Fragment key={i + "_err"}><b>{statement}:</b> <p>{message}</p><hr/></React.Fragment>
+}
 
 export default App;
