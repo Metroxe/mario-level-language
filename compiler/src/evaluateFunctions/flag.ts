@@ -1,5 +1,14 @@
-import { IElement } from "shared";
-
+import { IElement, Sprite } from "shared";
 export default (statement: string[]): IElement[] => {
-	return []
+	const elements: IElement[] = [];
+	const x = parseFloat(statement[1]);
+	const y = parseFloat(statement[3]);
+	elements.push({x, y, sprite: Sprite.DIAMOND_BRICK});
+	let i = 8;
+	while (i > 0) {
+		elements.push({x, y: y - i, sprite: Sprite.FLAG_BODY});
+		i--;
+	}
+	elements.push({x, y: y - 9, sprite: Sprite.FLAG_TOP});
+	return elements;
 }
