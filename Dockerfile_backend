@@ -38,8 +38,7 @@ RUN npm install --only=production
 # backend
 WORKDIR /usr/src/backend
 COPY ./backend/package*.json ./
-RUN npm remove compiler
-RUN npm remove shared
+RUN npm remove compiler shared
 RUN npm install --only=production
 
 # compiling

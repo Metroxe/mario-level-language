@@ -9,9 +9,8 @@ function compile(input: string): {elements: IElement[], err?: TypeErr[]} {
 	const tokens = tokenize(uppercase);
 	const statements = parse(tokens);
 	const [err, commands] = typeCheck(statements);
-	console.log("typeCheck", err, commands);
 	const elements = evaluate(commands);
-	console.log("evaluate", elements);
+	console.log(elements);
 	return {elements, err};
 }
 

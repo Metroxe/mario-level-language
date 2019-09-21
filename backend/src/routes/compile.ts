@@ -11,7 +11,8 @@ app.post("/compile", async (req, res) => {
 		const {elements, err} = compile(req.body.input);
 		const base64 = (await generateImage([elements]))[0];
 		res.status(200).send({base64, err});
-	} catch {
-		res.sendStatus(500);
+	} catch (err) {
+		console.log(err);
+		res.status(500).send(err);
 	}
 });

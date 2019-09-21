@@ -219,7 +219,7 @@ async function injectHTML(elements: IElement[], SpriteEnum: typeof Sprite, sprit
 			sprite: SpriteEnum.FLAG_BODY
 		}
 	];
-	elements = testElements;
+	// elements = testElements;
 
 	// start of real code
 	let max = grabMax(elements);
