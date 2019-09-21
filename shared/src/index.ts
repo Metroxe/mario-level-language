@@ -3,6 +3,7 @@ import level1_1 from "./mockLevels/level1_1";
 import examples from "./mockLevels/examples";
 
 export enum Sprite {
+	INVALID = "INVALID",
 	GROUND = "GROUND",
 	QUESTION_MARK = "QUESTION_MARK",
 	BRICK = "BRICK",
