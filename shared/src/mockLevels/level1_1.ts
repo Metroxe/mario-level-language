@@ -12,7 +12,6 @@ export default
 (197,4) CLOUD 1;
 (204,5) CLOUD 3;
 
-
 # BUSH
 (103,18) BUSH 3;
 (111,18) BUSH 1;
@@ -24,15 +23,12 @@ export default
 (188,18) BUSH 3;
 (196,18) BUSH 1;
 
-
 # PIPE
 (154,18) PIPE 2;
 (164,18) PIPE 2;
 
-
 # FLAG POLE
 (183,18) FLAG
-
 
 # GROUND
 (101,19)->(159,20) GROUND;
