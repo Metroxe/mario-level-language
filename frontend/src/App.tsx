@@ -1,9 +1,22 @@
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Alert, Button, ButtonGroup, Card, CardBody, CardImg, Container, Input, Jumbotron, Spinner} from 'reactstrap';
+import {
+	Alert,
+	Button,
+	ButtonGroup,
+	Card,
+	CardBody,
+	CardImg,
+	Container,
+	Input,
+	Jumbotron,
+	Modal, ModalBody, ModalHeader,
+	Spinner
+} from 'reactstrap';
 import "./App.css";
 import axios from "axios";
 import {levels} from "shared";
+import Instructions from "./instructions";
 
 import TextEditor from "./TextEditor";
 import {on} from "cluster";
@@ -14,6 +27,7 @@ const App: React.FC = () => {
 	const [input, updateInput] = useState(levels.examples.trim());
 	const [errors, updateErrors] = useState([]);
 	const [loading, updateLoading] = useState(false);
+	const [instructionsOpen, updateInstructionsOpen] = useState(false);
 
 
 	async function getImage() {
@@ -37,7 +51,18 @@ const App: React.FC = () => {
 		updateInput(e.currentTarget.value);
 	}
 
+	function toggle() {
+		updateInstructionsOpen(!instructionsOpen);
+	}
+
 	return (
+		<React.Fragment>
+			<Modal isOpen={instructionsOpen} toggle={toggle}>
+				<ModalHeader toggle={toggle}>Instructions</ModalHeader>
+				<ModalBody>
+					<Instructions/>
+				</ModalBody>
+			</Modal>
 		<Container>
 			<Jumbotron className="mt-4">
 				<h1 className="display-4">Mario Level Generator!</h1>
@@ -45,7 +70,8 @@ const App: React.FC = () => {
 				<hr className="my-2" />
 				<p>Specify class and ubc stuff here</p>
 				<p className="lead">
-					<Button color="primary" onClick={getImage} lo>Github</Button>
+					<Button color="primary" target="_blank" href="https://github.com/Metroxe/mario-level-language">Github</Button>
+					<Button className="ml-1" color="primary" onClick={toggle}>Instructions</Button>
 				</p>
 			</Jumbotron>
 			<Card className="mt-4">
@@ -78,6 +104,7 @@ const App: React.FC = () => {
 				</Card>
 			}
 		</Container>
+		</React.Fragment>
 	);
 };
 
