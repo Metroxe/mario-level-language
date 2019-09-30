@@ -18,6 +18,9 @@ import axios from "axios";
 import {levels} from "shared";
 import Instructions from "./instructions";
 
+import TextEditor from "./TextEditor";
+import {on} from "cluster";
+
 const App: React.FC = () => {
 
 	const [image, updateImage] = useState();
@@ -77,7 +80,8 @@ const App: React.FC = () => {
 						<Button onClick={useMock(levels.examples.trim())}>Example</Button>
 						<Button onClick={useMock(levels.level1_1.trim())}>Level 1-1</Button>
 					</ButtonGroup>
-					<Input className="mb-3" type="textarea" name="text" id="codeEntry" value={input} onChange={onChange}/>
+					{/*<Input className="mb-3" type="textarea" name="text" id="codeEntry" value={input} onChange={onChange}/>*/}
+					<TextEditor onChange={onChange} initialText={input}/>
 					{
 						errors.length > 0 && <Alert color="danger">
 							{errors.map(createError)}

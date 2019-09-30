@@ -1,3 +1,57 @@
 #codeEntry {
     min-height: 300px;
 }
+
+#contentEditable {
+    display: block;
+    height: 300px;
+    min-height: 300px;
+    overflow: auto;
+    resize: vertical;
+    color: #fff;
+    background-color: #444;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.pipe {
+    color: greenyellow;
+}
+
+.bush {
+    color: lightgreen;
+}
+
+.ground {
+    color: rosybrown;
+}
+
+.cloud {
+    color: lightblue;
+}
+
+.brick {
+    color: orange;
+}
+
+.question_mark {
+    color: yellow;
+}
+
+.flag {
+    color: red;
+}
+
+.var {
+    color: mediumpurple;
+}
+
+.comment {
+    color: gray
+}
