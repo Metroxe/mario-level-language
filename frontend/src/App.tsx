@@ -48,7 +48,7 @@ const App: React.FC = () => {
 	}
 
 	function onChange(e: React.FormEvent<HTMLInputElement>) {
-		updateInput(e.currentTarget.value);
+		updateInput(e.currentTarget.innerText.toUpperCase());
 	}
 
 	function toggle() {
@@ -81,7 +81,7 @@ const App: React.FC = () => {
 						<Button onClick={useMock(levels.level1_1.trim())}>Level 1-1</Button>
 					</ButtonGroup>
 					{/*<Input className="mb-3" type="textarea" name="text" id="codeEntry" value={input} onChange={onChange}/>*/}
-					<TextEditor onChange={onChange} initialText={input}/>
+					<TextEditor onChange={onChange} value={input}/>
 					{
 						errors.length > 0 && <Alert color="danger">
 							{errors.map(createError)}

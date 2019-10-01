@@ -4,7 +4,7 @@ type Props = {
     onChange(e: React.FormEvent<HTMLElement>): void,
     ref?: React.RefObject<HTMLDivElement>,
     disabled?: boolean,
-    initialText?: string
+    value: string
 };
 
 const regex = new RegExp(/(#.*)|\b(PIPE|BUSH|GROUND|CLOUD|BRICK|QUESTION_MARK|FLAG|VAR)\b/g);
@@ -12,7 +12,6 @@ const regex = new RegExp(/(#.*)|\b(PIPE|BUSH|GROUND|CLOUD|BRICK|QUESTION_MARK|FL
 const TextEditor: React.FC<Props> = (props: Props) => {
     const root: RefObject<HTMLDivElement> = useRef(null);
     const [html, updateHtml] = useState('');
-    const [text, updateText] = useState(props.initialText);
     const [caretPos, updateCaretPos] = useState(0);
     const [keyCode, updateKeyCode] = useState(0);
 
@@ -20,33 +19,29 @@ const TextEditor: React.FC<Props> = (props: Props) => {
         if (!root.current) {
             return;
         }
-
         // sets offset after re rendering
         // eslint-disable-next-line react-hooks/exhaustive-deps
         setOffset();
     }, [html]);
 
+    // update text here if changed by parent
     useEffect(() => {
-        if (!text) {
+        if (!props.value) {
             return;
         }
-        if (!text.length) {
+        if (!props.value.length) {
             return;
         }
-        
+
         // gets the offset before re rendering
         // eslint-disable-next-line react-hooks/exhaustive-deps
         getOffset();
 
         // replace text to html
-        let innerHTML = text.replace(regex, replaceToHTML);
+        let innerHTML = props.value.replace(regex, replaceToHTML);
         updateHtml(innerHTML);
-    }, [text]);
-
-    // update text here if changed by parent
-    useEffect(() => {
-        updateText(props.initialText);
-    }, [props.initialText]);
+        // updateText(props.initialText);
+    }, [props.value]);
 
     /**
      * Gets the offset given current caret position
@@ -128,7 +123,6 @@ const TextEditor: React.FC<Props> = (props: Props) => {
 
     const onInput = (e: React.FormEvent<HTMLDivElement>) => {
         e.stopPropagation();
-        updateText(e.currentTarget.innerText);
         // update parent
         props.onChange(e);
     };
