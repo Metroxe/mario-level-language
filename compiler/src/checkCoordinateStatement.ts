@@ -1,7 +1,7 @@
 import {ChildCheck, StatementType} from "./typeCheck";
 import {drawableSprites, scenarySprite, SpriteCommand} from "shared";
 
-function checkCoordinateStatement(statement: string[]): ChildCheck {
+function checkCoordinateStatement(statement: string[], variableNames: string[][]): ChildCheck {
 
 	const firstCoordValid = validCoord(statement);
 	let spriteName: SpriteCommand;
@@ -36,7 +36,7 @@ function checkCoordinateStatement(statement: string[]): ChildCheck {
 	}
 
 	// check for invalid sprite command
-	if (!(spriteName in SpriteCommand)) {
+	if (!(spriteName in SpriteCommand) && !variableNames[0].includes(spriteName)) {
 		return [{
 			message: `The sprite '${spriteName}' is not a valid sprite.`,
 			statement: statement.join(" "),

@@ -10,7 +10,6 @@ function compile(input: string): {elements: IElement[], err?: TypeErr[]} {
 	const statements = parse(tokens);
 	const [err, commands] = typeCheck(statements);
 	const elements = evaluate(commands);
-	console.log(elements);
 	return {elements, err};
 }
 
