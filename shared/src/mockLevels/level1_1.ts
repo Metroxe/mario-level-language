@@ -28,7 +28,7 @@ export default
 (164,18) PIPE 2;
 
 # FLAG POLE
-(183,18) FLAG
+(183,18) FLAG;
 
 # GROUND
 (101,19)->(159,20) GROUND;
