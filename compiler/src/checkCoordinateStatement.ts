@@ -36,7 +36,7 @@ function checkCoordinateStatement(statement: string[], variableNames: string[][]
 	}
 
 	// check for invalid sprite command
-	if (!(spriteName in SpriteCommand) && !variableNames[0].includes(spriteName)) {
+	if (!(spriteName in SpriteCommand)) {
 		return [{
 			message: `The sprite '${spriteName}' is not a valid sprite.`,
 			statement: statement.join(" "),
