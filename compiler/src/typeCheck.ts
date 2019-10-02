@@ -11,7 +11,8 @@ export enum StatementType {
 	PIPE,
 	FLAG,
 	SCENERY,
-	VARIABLE
+	VARIABLE,
+	VARIABLE_PLACEMENT
 }
 
 function typeCheck(statements: string[][]): [TypeErr[], Command[]]  {
