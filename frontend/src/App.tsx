@@ -66,9 +66,17 @@ const App: React.FC = () => {
 		<Container>
 			<Jumbotron className="mt-4">
 				<h1 className="display-4">Mario Level Generator!</h1>
-				<p className="lead">Describe the project here</p>
+				<p className="lead">This is a language for designing basic Mario Bros. levels.</p>
 				<hr className="my-2" />
-				<p>Specify class and ubc stuff here</p>
+				<p>
+					This project was built by&nbsp;
+					<a target="_blank" href="https://github.com/Metroxe">Christopher Powroznik</a>,&nbsp;
+					<a target="_blank" href="https://github.com/ksyeo1010">Kwangsoo Yeo</a>,&nbsp;
+					<a target="_blank" href="https://github.com/zhaitongtong">Tongtong Zhai</a>,&nbsp;
+					<a target="_blank" href="https://github.com/huanxinzzzz">Huanxin Zhang</a>, and&nbsp;
+					<a target="_blank" href="https://github.com/kevin-jugg">Kevin Zhu</a>&nbsp;
+					for <a target="_blank" href="https://www.students.cs.ubc.ca/~cs-410/2019w1/index.html">CPSC 410: Advanced Software Engineering</a>&nbsp;
+				</p>
 				<p className="lead">
 					<Button color="primary" target="_blank" href="https://github.com/Metroxe/mario-level-language">Github</Button>
 					<Button className="ml-1" color="primary" onClick={toggle}>Instructions</Button>
