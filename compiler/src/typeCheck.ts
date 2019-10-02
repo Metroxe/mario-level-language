@@ -1,4 +1,5 @@
 import checkCoordinateStatement from "./checkCoordinateStatement";
+import checkVariableStatement from "./checkVariableStatement";
 
 export type TypeErr = {message: string, statement: string}
 export type Command = {statement: string[], type: StatementType}
@@ -10,12 +11,14 @@ export enum StatementType {
 	PIPE,
 	FLAG,
 	SCENERY,
-	VARIABLE
+	VARIABLE,
+	VARIABLE_PLACEMENT
 }
 
 function typeCheck(statements: string[][]): [TypeErr[], Command[]]  {
 	const errs: TypeErr[] = [];
 	const commands: Command[] = [];
+	const variableNames: string[][] = [[]];
 	for (let i = 0; i < statements.length; i++) {
 		const statement = statements[i];
 
@@ -36,12 +39,12 @@ function typeCheck(statements: string[][]): [TypeErr[], Command[]]  {
 
 			// starting with coordinate
 			if (startingCoord) {
-				childCheck = checkCoordinateStatement(statement);
+				childCheck = checkCoordinateStatement(statement, variableNames);
 			} else
 
 			// starting with variable
 			if (startingVar) {
-				childCheck = checkVariableStatement(statement);
+				childCheck = checkVariableStatement(statement, variableNames);
 			}
 
 			const [err, command] = childCheck;
@@ -60,11 +63,6 @@ function typeCheck(statements: string[][]): [TypeErr[], Command[]]  {
 	}
 
 	return [errs, commands];
-}
-
-// check for valid valid
-function checkVariableStatement(statement: string[]): ChildCheck {
-	return [ undefined, {statement, type: StatementType.VARIABLE}]
 }
 
 export default typeCheck;

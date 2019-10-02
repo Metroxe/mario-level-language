@@ -7,9 +7,11 @@ import pipe from "./evaluateFunctions/pipe";
 import flag from "./evaluateFunctions/flag";
 import scenery from "./evaluateFunctions/scenery";
 import variable from "./evaluateFunctions/variable";
+import variablePlacement from "./evaluateFunctions/variablePlacement";
 
 function evaluate(commands: Command[]): IElement[] {
 	let elementArrays: IElement[][] = [];
+	const variables: {[key: string]: IElement[]} = {};
 	for (const {type, statement} of commands) {
 		let elements: IElement[] = [];
 		switch (type) {
@@ -29,7 +31,11 @@ function evaluate(commands: Command[]): IElement[] {
 				elements = scenery(statement);
 				break;
 			case StatementType.VARIABLE:
-				elements = variable(statement);
+				const [variableName, eles] = variable(statement);
+				variables[variableName] = eles;
+				break;
+			case StatementType.VARIABLE_PLACEMENT:
+				elements = variablePlacement(statement, variables);
 				break;
 		}
 		elementArrays.push(elements);

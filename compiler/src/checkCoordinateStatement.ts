@@ -1,7 +1,7 @@
 import {ChildCheck, StatementType} from "./typeCheck";
 import {drawableSprites, scenarySprite, SpriteCommand} from "shared";
 
-function checkCoordinateStatement(statement: string[]): ChildCheck {
+function checkCoordinateStatement(statement: string[], variableNames: string[][]): ChildCheck {
 
 	const firstCoordValid = validCoord(statement);
 	let spriteName: SpriteCommand;
@@ -36,7 +36,7 @@ function checkCoordinateStatement(statement: string[]): ChildCheck {
 	}
 
 	// check for invalid sprite command
-	if (!(spriteName in SpriteCommand)) {
+	if (!(spriteName in SpriteCommand) && !variableNames[0].includes(spriteName)) {
 		return [{
 			message: `The sprite '${spriteName}' is not a valid sprite.`,
 			statement: statement.join(" "),
@@ -45,7 +45,7 @@ function checkCoordinateStatement(statement: string[]): ChildCheck {
 
 	// check that sprite is drawable if isDraw === true
 	if (isDraw) {
-		if (!drawableSprites.includes(spriteName)) {
+		if (![...drawableSprites, ...variableNames[0]].includes(spriteName)) {
 			return [{
 				message: `The sprite ${spriteName} is not drawable. Only ${drawableSprites.toString()} are drawable.`,
 				statement: statement.join(" "),
@@ -71,6 +71,12 @@ function checkCoordinateStatement(statement: string[]): ChildCheck {
 		isScenery = true;
 	}
 
+	//isVariable
+	let isVariable = false;
+	if (variableNames[0].includes(spriteName)) {
+		isVariable = true;
+	}
+
 	// check for float and end of statement
 	if (isPipe || isScenery) {
 		if (!isFloat(statement[6])) {
@@ -91,6 +97,8 @@ function checkCoordinateStatement(statement: string[]): ChildCheck {
 		type = StatementType.PIPE;
 	} else if (isFlag) {
 		type = StatementType.FLAG;
+	} else if (isVariable) {
+		type = StatementType.VARIABLE_PLACEMENT;
 	} else {
 		type = StatementType.PLACEMENT;
 	}
