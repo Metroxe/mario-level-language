@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {RefObject, useRef, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
 	Alert,
@@ -9,6 +9,8 @@ import {
 	CardImg,
 	Container,
 	Input,
+	InputGroup,
+	InputGroupAddon,
 	Jumbotron,
 	Modal, ModalBody, ModalHeader,
 	Spinner
@@ -24,10 +26,14 @@ import {on} from "cluster";
 const App: React.FC = () => {
 
 	const [image, updateImage] = useState();
-	const [input, updateInput] = useState(levels.examples.trim());
+	const [input, updateInput] = useState('');
 	const [errors, updateErrors] = useState([]);
 	const [loading, updateLoading] = useState(false);
 	const [instructionsOpen, updateInstructionsOpen] = useState(false);
+	// file managing part
+	const [fileName, updateFileName] = useState('');
+	const [fileOpen, updateFileOpen] = useState(false);
+	const upload: RefObject<HTMLInputElement> = useRef(null);
 
 
 	async function getImage() {
@@ -51,8 +57,50 @@ const App: React.FC = () => {
 		updateInput(e.currentTarget.innerText.toUpperCase());
 	}
 
+	function createNew() {
+		// empty string is not updated?
+		updateInput(" ");
+	}
+
 	function toggle() {
 		updateInstructionsOpen(!instructionsOpen);
+	}
+
+	function toggleFile() {
+		updateFileOpen(!fileOpen)
+	}
+
+	function saveFile() {
+		downloadFile(input, fileName);
+		toggleFile();
+	}
+
+	function uploadFile(e: React.FormEvent<HTMLInputElement>) {
+		if (!upload.current) {
+			return;
+		}
+		upload.current.click();
+	}
+
+	function handleUploaded(e: React.FormEvent<HTMLInputElement>) {
+		if (e.currentTarget.files === null) {
+			return;
+		}
+		let file = e.currentTarget.files[0];
+		let reader = new FileReader();
+		reader.readAsText(file, 'UTF-8');
+		reader.onload = (e) => {
+			if (!e.target) {
+				return;
+			}
+			if (!e.target.result) {
+				return;
+			}
+			let text = e.target.result.toString();
+			updateInput(text);
+
+			updateFileName(file.name.slice(0, file.name.length - 4));
+		}
 	}
 
 	return (
@@ -76,10 +124,31 @@ const App: React.FC = () => {
 			</Jumbotron>
 			<Card className="mt-4">
 				<CardBody>
-					<ButtonGroup className="mb-3">
-						<Button onClick={useMock(levels.examples.trim())}>Example</Button>
-						<Button onClick={useMock(levels.level1_1.trim())}>Level 1-1</Button>
-					</ButtonGroup>
+					<div>
+						<ButtonGroup className="mb-3">
+							<Button onClick={useMock(levels.examples.trim())}>Example</Button>
+							<Button onClick={useMock(levels.level1_1.trim())}>Level 1-1</Button>
+						</ButtonGroup>
+					</div>
+					<div>
+						<ButtonGroup className="mb-3">
+							<Button onClick={createNew}>Clear</Button>
+							<Button onClick={toggleFile}>Save</Button>
+							<Button onClick={uploadFile}>Upload</Button>
+						</ButtonGroup>
+						<input ref={upload} onChange={handleUploaded} type='file' name='file' accept='.mlg' hidden/>
+					</div>
+					<Modal isOpen={fileOpen} toggle={toggleFile}>
+						<ModalHeader toggle={toggleFile}>Save file</ModalHeader>
+						<ModalBody>
+							<InputGroup>
+								<Input name='text' placeholder='File Name' value={fileName} onChange={(e) => updateFileName(e.currentTarget.value)}/>
+								<InputGroupAddon addonType='append'>
+									<Button color='info' onClick={saveFile}>Save</Button>
+								</InputGroupAddon>
+							</InputGroup>
+						</ModalBody>
+					</Modal>
 					{/*<Input className="mb-3" type="textarea" name="text" id="codeEntry" value={input} onChange={onChange}/>*/}
 					<TextEditor onChange={onChange} value={input}/>
 					{
@@ -110,6 +179,16 @@ const App: React.FC = () => {
 
 function createError({message, statement}: {message: string, statement: string}, i: number): JSX.Element {
 	return <React.Fragment key={i + "_err"}><b>{statement}:</b> <p>{message}</p><hr/></React.Fragment>
+}
+
+function downloadFile(input: string, fileName: string) {
+	const element = document.createElement('a');
+	const file = new Blob([input], {type: 'text/plain'});
+	element.href = URL.createObjectURL(file);
+	element.download = `${fileName}.mlg`;
+	document.body.appendChild(element);
+	element.click();
+	document.body.removeChild(element);
 }
 
 export default App;
