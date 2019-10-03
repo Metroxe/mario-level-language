@@ -1,7 +1,7 @@
 import {IElement, Sprite} from "shared";
 
 
-async function injectHTML(elements: IElement[], SpriteEnum: typeof Sprite, spriteSheet) {
+async function injectHTML(elements: IElement[], SpriteEnum: typeof Sprite, spriteSheet, max: {x: number, y: number}) {
 	// Global constants here
 	const DIMENSION_RATIO = 16;
 
@@ -91,138 +91,8 @@ async function injectHTML(elements: IElement[], SpriteEnum: typeof Sprite, sprit
 		}
 	};
 
-	// DELETE AFTER
-	let testElements = [
-		{
-			x: 0,
-			y: 4,
-			sprite: SpriteEnum.GROUND
-		},
-		{
-			x: 1,
-			y: 4,
-			sprite: SpriteEnum.GROUND
-		},
-		{
-			x: 2,
-			y: 4,
-			sprite: SpriteEnum.GROUND
-		},
-		{
-			x: 3,
-			y: 4,
-			sprite: SpriteEnum.GROUND
-		},
-		{
-			x: 4,
-			y: 4,
-			sprite: SpriteEnum.GROUND
-		},
-		{
-			x: 5,
-			y: 4,
-			sprite: SpriteEnum.GROUND
-		},
-		{
-			x: 2,
-			y: 2,
-			sprite: SpriteEnum.QUESTION_MARK
-		},
-		{
-			x: 3,
-			y: 2,
-			sprite: SpriteEnum.PIPE_TL
-		},
-		{
-			x: 4,
-			y: 2,
-			sprite: SpriteEnum.PIPE_TR
-		},
-		{
-			x: 3,
-			y: 3,
-			sprite: SpriteEnum.PIPE_BL
-		},
-		{
-			x: 4,
-			y: 3,
-			sprite: SpriteEnum.PIPE_BR
-		},
-		{
-			x: 4,
-			y: 0,
-			sprite: SpriteEnum.CLOUD_TR
-		},
-		{
-			x: 3,
-			y: 0,
-			sprite: SpriteEnum.CLOUD_TM
-		},
-		{
-			x: 2,
-			y: 0,
-			sprite: SpriteEnum.CLOUD_TL
-		},
-		{
-			x: 4,
-			y: 1,
-			sprite: SpriteEnum.CLOUD_BR
-		},
-		{
-			x: 3,
-			y: 1,
-			sprite: SpriteEnum.CLOUD_BM
-		},
-		{
-			x: 2,
-			y: 1,
-			sprite: SpriteEnum.CLOUD_BL
-		},
-		{
-			x: 0,
-			y: 3,
-			sprite: SpriteEnum.BUSH_L
-		},
-		{
-			x: 1,
-			y: 3,
-			sprite: SpriteEnum.BUSH_M
-		},
-		{
-			x: 2,
-			y: 3,
-			sprite: SpriteEnum.BUSH_R
-		},
-		{
-			x: 1,
-			y: 2,
-			sprite: SpriteEnum.DIAMOND_BRICK
-		},
-		{
-			x: 0,
-			y: 2,
-			sprite: SpriteEnum.BRICK
-		},
-		{
-			x: 5,
-			y: 1,
-			sprite: SpriteEnum.FLAG_TOP
-		},
-		{
-			x: 5,
-			y: 2,
-			sprite: SpriteEnum.FLAG_BODY
-		},
-		{
-			x: 5,
-			y: 3,
-			sprite: SpriteEnum.FLAG_BODY
-		}
-	];
-	// elements = testElements;
-
 	// start of real code
-	let max = grabMax(elements);
+	// let max = grabMax(elements);
 
 	// CANVAS
 	const canvas = document.createElement('canvas');
