@@ -55,22 +55,3 @@
 .comment {
     color: gray
 }
-
-.topContainer {
-    display: flex;
-    flex-direction: row;
-    overflow: auto;
-    max-width: 2000px;
-}
-
-.mainContainer {
-    display: flex;
-    flex-direction: column;
-    max-width: 2000px;
-}
-
-.instructions {
-    margin-top: 25px;
-    height: 50px;
-    overflow-y: "scroll";
-}

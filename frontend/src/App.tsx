@@ -105,12 +105,7 @@ const App: React.FC = () => {
 
 	return (
 		<React.Fragment>
-		<Container className="topContainer">
-		<Jumbotron style={{ width: '400px',height: '1200px', overflowY: 'scroll', marginTop:'23.5px'}}>
-			<h5 style={{color:'blue'}}>Instructions</h5>
-			<Instructions/>
-		</Jumbotron>
-		<Container className="mainContainer">
+		<Container>
 			<Modal isOpen={instructionsOpen} toggle={toggle}>
 				<ModalHeader toggle={toggle}>Instructions</ModalHeader>
 				<ModalBody>
@@ -185,11 +180,6 @@ const App: React.FC = () => {
 					<CardImg src={image} style={{width: 'fit-content'}}/>
 				</Card>
 			}
-		</Container>
-		<Jumbotron style={{ width: '400px',height: '1200px', overflowY: 'scroll', marginTop:'23.5px' }}>
-			<h5 style={{color:'blue'}}>Instructions</h5>
-			<Instructions/>
-		</Jumbotron>
 		</Container>
 		</React.Fragment>
 	);
