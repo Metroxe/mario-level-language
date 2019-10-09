@@ -101,17 +101,22 @@ const App: React.FC = () => {
 
 			updateFileName(file.name.slice(0, file.name.length - 3));
 		}
-	}
+	}	
 
 	return (
 		<React.Fragment>
+		<Container className="topContainer">
+		<Jumbotron style={{ width: '400px',height: '1200px', overflowY: 'scroll', marginTop:'23.5px'}}>
+			<h5 style={{color:'blue'}}>Instructions</h5>
+			<Instructions/>
+		</Jumbotron>
+		<Container className="mainContainer">
 			<Modal isOpen={instructionsOpen} toggle={toggle}>
 				<ModalHeader toggle={toggle}>Instructions</ModalHeader>
 				<ModalBody>
 					<Instructions/>
 				</ModalBody>
 			</Modal>
-		<Container>
 			<Jumbotron className="mt-4">
 				<h1 className="display-4">Mario Level Generator!</h1>
 				<p className="lead">This is a language for designing basic Mario Bros. levels.</p>
@@ -180,6 +185,11 @@ const App: React.FC = () => {
 					<CardImg src={image} style={{width: 'fit-content'}}/>
 				</Card>
 			}
+		</Container>
+		<Jumbotron style={{ width: '400px',height: '1200px', overflowY: 'scroll', marginTop:'23.5px' }}>
+			<h5 style={{color:'blue'}}>Instructions</h5>
+			<Instructions/>
+		</Jumbotron>
 		</Container>
 		</React.Fragment>
 	);
