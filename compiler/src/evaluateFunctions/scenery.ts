@@ -1,4 +1,5 @@
 import { IElement, SpriteCommand, Sprite } from "shared";
+import coordinateFlip from "../coordinateFlip";
 
 export default (statement: string[]): IElement[] => {
 	const elements: IElement[] = [];
@@ -25,5 +26,5 @@ export default (statement: string[]): IElement[] => {
 		}
 		elements.push({x: i, y, sprite: Sprite.BUSH_R});
 	}
-	return elements;
+	return coordinateFlip(elements);
 }

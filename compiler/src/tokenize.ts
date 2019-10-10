@@ -29,7 +29,10 @@ function tokenize(input: string): string[] {
 	tokenized = tokenized.filter(l => l.split(' ').join('').length > 0);
 
 	// remove tabs
-	tokenized = tokenized.map(m => m.replace("\t", ""));
+	tokenized = tokenized.map(m => m.replace("\t", " "));
+
+	// join spaces
+	tokenized = tokenized.map(m => m.replace("  ", " "));
 
 	// split on spaces and join lines
 	tokenized = flatten(tokenized.map(s => s.split(" ")));
