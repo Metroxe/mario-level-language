@@ -12,7 +12,7 @@ export enum StatementType {
 	FLAG,
 	SCENERY,
 	VARIABLE,
-	VARIABLE_PLACEMENT
+	VARIABLE_PLACEMENT,
 }
 
 function typeCheck(statements: string[][]): [TypeErr[], Command[]]  {

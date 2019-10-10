@@ -63,8 +63,8 @@ const Instructions: React.FC = () => {
 			</p>
 			<h6>Example</h6>
 			<code>
-				# FLAG POLE EXAMPLE
-				# COORD OF BOTTOM
+				# FLAG POLE EXAMPLE<br/>
+				# COORD OF BOTTOM<br/>
 				(50,3) FLAG;
 			</code>
 			<hr/>
