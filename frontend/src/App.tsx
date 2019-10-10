@@ -99,7 +99,7 @@ const App: React.FC = () => {
 			let text = e.target.result.toString();
 			updateInput(text);
 
-			updateFileName(file.name.slice(0, file.name.length - 4));
+			updateFileName(file.name.slice(0, file.name.length - 3));
 		}
 	}
 
@@ -144,7 +144,7 @@ const App: React.FC = () => {
 							<Button onClick={toggleFile}>Save</Button>
 							<Button onClick={uploadFile}>Upload</Button>
 						</ButtonGroup>
-						<input ref={upload} onChange={handleUploaded} type='file' name='file' accept='.mlg' hidden/>
+						<input ref={upload} onChange={handleUploaded} type='file' name='file' accept='.mm' hidden/>
 					</div>
 					<Modal isOpen={fileOpen} toggle={toggleFile}>
 						<ModalHeader toggle={toggleFile}>Save file</ModalHeader>
@@ -176,8 +176,8 @@ const App: React.FC = () => {
 			</Card>
 			{
 				image &&
-				<Card className="mt-4 mb-4">
-					<CardImg src={image}/>
+				<Card className="mt-4 mb-4" style={{overflowX: 'scroll'}}>
+					<CardImg src={image} style={{width: 'fit-content'}}/>
 				</Card>
 			}
 		</Container>
@@ -193,7 +193,7 @@ function downloadFile(input: string, fileName: string) {
 	const element = document.createElement('a');
 	const file = new Blob([input], {type: 'text/plain'});
 	element.href = URL.createObjectURL(file);
-	element.download = `${fileName}.mlg`;
+	element.download = `${fileName}.mm`;
 	document.body.appendChild(element);
 	element.click();
 	document.body.removeChild(element);
