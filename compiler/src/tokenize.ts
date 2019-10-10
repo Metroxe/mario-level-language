@@ -34,6 +34,9 @@ function tokenize(input: string): string[] {
 	// join spaces
 	tokenized = tokenized.map(m => m.replace("  ", " "));
 
+	// remove spaces at start of lines
+	tokenized = tokenized.map(m => m[0] === " " ? m.substr(1) : m);
+
 	// split on spaces and join lines
 	tokenized = flatten(tokenized.map(s => s.split(" ")));
 
