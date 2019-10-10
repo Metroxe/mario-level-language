@@ -120,9 +120,8 @@ const App: React.FC = () => {
 					This project was built by&nbsp;
 					<a target="_blank" href="https://github.com/Metroxe">Christopher Powroznik</a>,&nbsp;
 					<a target="_blank" href="https://github.com/ksyeo1010">Kwangsoo Yeo</a>,&nbsp;
-					<a target="_blank" href="https://github.com/zhaitongtong">Tongtong Zhai</a>,&nbsp;
-					<a target="_blank" href="https://github.com/huanxinzzzz">Huanxin Zhang</a>, and&nbsp;
-					<a target="_blank" href="https://github.com/kevin-jugg">Kevin Zhu</a>&nbsp;
+					<a target="_blank" href="https://github.com/zhaitongtong">Tongtong Zhai</a>, and&nbsp;
+					<a target="_blank" href="https://github.com/huanxinzzzz">Huanxin Zhang</a>&nbsp;
 					for <a target="_blank" href="https://www.students.cs.ubc.ca/~cs-410/2019w1/index.html">CPSC 410: Advanced Software Engineering</a>&nbsp;
 				</p>
 				<p className="lead">
