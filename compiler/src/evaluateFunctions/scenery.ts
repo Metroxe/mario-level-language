@@ -5,7 +5,7 @@ export default (statement: string[]): IElement[] => {
 	const elements: IElement[] = [];
 	const x = parseFloat(statement[1]);
 	const y = parseFloat(statement[3]);
-	const w = Math.abs(parseFloat(statement[6]));
+	const w = Math.abs(parseFloat(statement[6])) + 1;
 	let i;
 	const end = x + w;
 
