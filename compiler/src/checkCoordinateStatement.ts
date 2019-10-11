@@ -106,18 +106,18 @@ function checkCoordinateStatement(statement: string[], variableNames: string[][]
 	return [ undefined, {statement, type}]
 }
 
-function validCoord(coord: string[]): boolean {
+export function validCoord(coord: string[], coordNames: string[] = []): boolean {
 	// left brace
 	if (coord[0] !== "(") return false;
 
 	// first number
-	if (!isFloat(coord[1])) return false;
+	if (!isFloat(coord[1]) && !coordNames.includes(coord[1])) return false;
 
 	// comma
 	if (coord[2] !== ",") return false;
 
 	// second number
-	if (!isFloat(coord[3])) return false;
+	if (!isFloat(coord[3]) && !coordNames.includes(coord[3])) return false;
 
 	// right brace
 	if (coord[4] !== ")") return false;

@@ -1,12 +1,12 @@
 import { IElement, SpriteCommand } from "shared";
-import {determineSprite} from "./placement";
+import {coordValue, determineSprite} from "./placement";
 
-export default (statement: string[]): IElement[] => {
+export default (statement: string[], coords: {[key: string]: [number, number]}): IElement[] => {
 	const elements: IElement[] = [];
-	const fromX = parseFloat(statement[1]);
-	const fromY = parseFloat(statement[3]);
-	const toX = parseFloat(statement[7]);
-	const toY = parseFloat(statement[9]);
+	const fromX = coordValue(true, statement[1], coords);
+	const fromY = coordValue(false, statement[3], coords);
+	const toX = coordValue(true, statement[7], coords);
+	const toY = coordValue(false, statement[9], coords);
 	const sprite = determineSprite(statement[11] as SpriteCommand);
 
 	for (let x = fromX; x <= toX; x++) {
