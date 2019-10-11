@@ -43,7 +43,7 @@ function typeCheck(statements: string[][]): [TypeErr[], Command[]]  {
 
 			// starting with coordinate
 			if (startingCoord) {
-				childCheck = checkCoordinateStatement(statement, variableNames);
+				childCheck = checkCoordinateStatement(statement, variableNames, coordNames);
 			} else
 
 			// starting with variable

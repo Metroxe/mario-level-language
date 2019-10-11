@@ -1,9 +1,10 @@
 import {ChildCheck, StatementType} from "./typeCheck";
 import {drawableSprites, scenarySprite, SpriteCommand} from "shared";
+import {removeMath} from "./checkCoordVariableStatement";
 
-function checkCoordinateStatement(statement: string[], variableNames: string[][]): ChildCheck {
+function checkCoordinateStatement(statement: string[], variableNames: string[][], coordNames: string[][]): ChildCheck {
 
-	const firstCoordValid = validCoord(statement);
+	const firstCoordValid = validCoord(statement, coordNames[0]);
 	let spriteName: SpriteCommand;
 
 	// check first coordinate is valid
@@ -111,13 +112,13 @@ export function validCoord(coord: string[], coordNames: string[] = []): boolean 
 	if (coord[0] !== "(") return false;
 
 	// first number
-	if (!isFloat(coord[1]) && !coordNames.includes(coord[1])) return false;
+	if (!isFloat(coord[1]) && !coordNames.includes(removeMath(coord[1])[1])) return false;
 
 	// comma
 	if (coord[2] !== ",") return false;
 
 	// second number
-	if (!isFloat(coord[3]) && !coordNames.includes(coord[3])) return false;
+	if (!isFloat(coord[3]) && !coordNames.includes(removeMath(coord[3])[1])) return false;
 
 	// right brace
 	if (coord[4] !== ")") return false;
@@ -125,13 +126,8 @@ export function validCoord(coord: string[], coordNames: string[] = []): boolean 
 	return true;
 }
 
-function isFloat(value: string): boolean {
-	try {
-		parseFloat(value);
-		return true;
-	} catch {
-		return  false;
-	}
+export function isFloat(value: string): boolean {
+	return /^\-?[0-9]+(e[0-9]+)?(\.[0-9]+)?$/.test(value)
 }
 
 export default checkCoordinateStatement;

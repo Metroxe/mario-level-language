@@ -1,4 +1,4 @@
-import {ChildCheck, StatementType} from "./typeCheck";
+import {ChildCheck, StatementType, TypeErr} from "./typeCheck";
 import {validCoord} from "./checkCoordinateStatement";
 
 function checkCoordinateVariableStatement(statement: string[], coordNames: string[][]): ChildCheck {
@@ -9,8 +9,35 @@ function checkCoordinateVariableStatement(statement: string[], coordNames: strin
 			statement: statement.join(" "),
 		}, undefined];
 	}
-	coordNames[0].push(statement[1]);
+	const [err, name] = removeMath(statement[1], statement);
+	if (err) {
+		return [err, undefined]
+	}
+	coordNames[0].push(name);
 	return [undefined, {type: StatementType.VARIABLE_COORD, statement}];
+}
+
+export type IMath = [boolean, number]; // [is+?, number]
+
+export function removeMath(s: string, statement: string[] = []): [TypeErr | undefined, string, IMath | undefined] {
+	const numberOfPlus = s.split("+").length - 1;
+	const numberOfMinus = s.split("-").length - 1;
+
+	if ((numberOfPlus > 0 && numberOfMinus > 0) || numberOfPlus > 1 || numberOfMinus > 1) {
+		return [{message: "cannot do more than 1 math operation in a coord", statement: statement.join(" ")}, s, undefined]
+	}
+
+	if (numberOfPlus > 1) {
+		const _s = s.split("+")[0];
+		return [undefined, s.split("+")[0], [true, parseFloat(_s[1])]]
+	}
+
+	if (numberOfMinus > 1) {
+		const _s = s.split("-")[0];
+		return [undefined, _s[0], [false, parseFloat(_s[1])]]
+	}
+
+	return [undefined, s, undefined];
 }
 
 export default checkCoordinateVariableStatement;
