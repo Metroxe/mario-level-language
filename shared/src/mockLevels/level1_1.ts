@@ -1,7 +1,7 @@
 export default
 `
 #FIRST PART
-(0,14) CLOUD;
+(0,14) CLOUD 0;
 (0,0) -> (70, 1) GROUND;
 
 (16,6) QUESTION_MARK;
@@ -114,7 +114,7 @@ VAR B_FOUR [
 (157, 2) B_FOUR;
 (158, 2) B_THREE;
 (159, 2) B_TWO;
-(160, 2) BUSH;
+(160, 2) BUSH 0;
 (160, 2) B_ONE;
 
 (165, 2) PIPE 1;
