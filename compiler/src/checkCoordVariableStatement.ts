@@ -27,13 +27,13 @@ export function removeMath(s: string, statement: string[] = []): [TypeErr | unde
 		return [{message: "cannot do more than 1 math operation in a coord", statement: statement.join(" ")}, s, undefined]
 	}
 
-	if (numberOfPlus > 1) {
-		const _s = s.split("+")[0];
-		return [undefined, s.split("+")[0], [true, parseFloat(_s[1])]]
+	if (numberOfPlus > 0) {
+		const _s = s.split("+");
+		return [undefined, _s[0], [true, parseFloat(_s[1])]]
 	}
 
-	if (numberOfMinus > 1) {
-		const _s = s.split("-")[0];
+	if (numberOfMinus > 0) {
+		const _s = s.split("-");
 		return [undefined, _s[0], [false, parseFloat(_s[1])]]
 	}
 

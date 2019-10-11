@@ -32,9 +32,7 @@ export function coordValue(isX: boolean, input: string, coords: {[key: string]: 
 		return parseFloat(input)
 	}
 
-	console.log(removeMath(input));
 	const [err, name, math] = removeMath(input);
-
 	const coord = coords[name];
 
 	if (!coord || err) {
