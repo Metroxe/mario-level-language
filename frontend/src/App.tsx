@@ -108,13 +108,13 @@ const App: React.FC = () => {
 
 	return (
 		<React.Fragment>
+		<Container>
 			<Modal isOpen={instructionsOpen} toggle={toggle}>
 				<ModalHeader toggle={toggle}>Instructions</ModalHeader>
 				<ModalBody>
 					<Instructions/>
 				</ModalBody>
 			</Modal>
-		<Container>
 			<Jumbotron className="mt-4">
 				<h1 className="display-4">Mario Level Generator!</h1>
 				<p className="lead">This is a language for designing basic Mario Bros. levels.</p>
