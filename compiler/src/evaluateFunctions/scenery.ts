@@ -1,10 +1,10 @@
 import { IElement, SpriteCommand, Sprite } from "shared";
-import coordinateFlip from "../coordinateFlip";
+import {coordValue} from "./placement";
 
-export default (statement: string[]): IElement[] => {
+export default (statement: string[], coords: {[key: string]: [number, number]}): IElement[] => {
 	const elements: IElement[] = [];
-	const x = parseFloat(statement[1]);
-	const y = parseFloat(statement[3]);
+	const x = coordValue(true, statement[1], coords);
+	const y = coordValue(false, statement[3], coords);
 	const w = Math.abs(parseFloat(statement[6])) + 1;
 	let i;
 	const end = x + w;

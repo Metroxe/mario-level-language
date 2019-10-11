@@ -12,7 +12,6 @@ function compile(input: string): {elements: IElement[], err?: TypeErr[]} {
 	const [err, commands] = typeCheck(statements);
 	let elements = evaluate(commands);
 	elements = coordinateFlip(elements);
-	console.log(elements);
 	return {elements, err};
 }
 
