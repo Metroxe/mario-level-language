@@ -20,7 +20,7 @@ function checkCoordinateStatement(statement: string[], variableNames: string[][]
 
 	// check second coordinate for draw statement
 	if (isDraw) {
-		const secondCoordValid = validCoord(statement.slice(6,11));
+		const secondCoordValid = validCoord(statement.slice(6,11), coordNames[0]);
 		if (!secondCoordValid) {
 			return [{
 				message: "The second coordinate is invalid for the draw statement.",
