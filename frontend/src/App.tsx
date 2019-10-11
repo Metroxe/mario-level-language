@@ -22,6 +22,7 @@ import Instructions from "./instructions";
 
 import TextEditor from "./TextEditor";
 import {on} from "cluster";
+import Grid from "./Grid";
 
 const App: React.FC = () => {
 
@@ -29,6 +30,8 @@ const App: React.FC = () => {
 	const [input, updateInput] = useState('');
 	const [errors, updateErrors] = useState([]);
 	const [loading, updateLoading] = useState(false);
+	const [grid, updateGrid] = useState(false);
+	const [cord, updateCord] = useState({x: 0, y: 0});
 	const [instructionsOpen, updateInstructionsOpen] = useState(false);
 	// file managing part
 	const [fileName, updateFileName] = useState('');
@@ -167,6 +170,15 @@ const App: React.FC = () => {
 						{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}
 						Make Image
 					</Button>
+					{
+						image &&
+						<Button className="mr-1" onClick={() => updateGrid(!grid)} color="primary">
+							Toggle Grid
+						</Button>
+
+					}
+					{grid && <p>x: {cord.x}, y: {cord.y}</p>}
+
 					{/*<Button color="primary" disabled={loading}>*/}
 					{/*	{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}*/}
 					{/*	Make Video*/}
@@ -176,7 +188,8 @@ const App: React.FC = () => {
 			{
 				image &&
 				<Card className="mt-4 mb-4" style={{overflowX: 'scroll'}}>
-					<CardImg src={image} style={{width: 'fit-content'}}/>
+					<Grid image={image} toggle={grid} updateCoordinates={updateCord}/>
+					{/*<CardImg src={image} style={{width: 'fit-content'}}/>*/}
 				</Card>
 			}
 		</Container>

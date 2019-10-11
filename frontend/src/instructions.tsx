@@ -24,6 +24,7 @@ const Instructions: React.FC = () => {
 				# PLACE AN OBJECT<br/>
 				(16,10) QUESTION_MARK;
 			</code>
+			<p><b>Note:</b> After you create an image, you can click on the toggle grid button. After you click on it, it will show a grid system. If you click on a square given the grid, it will print the x and y coordinates below the toggle button. This will help you get the coordinates without counting squares.</p>
 			<hr/>
 
 			<h5>Drawing</h5>
