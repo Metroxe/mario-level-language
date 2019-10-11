@@ -14,6 +14,7 @@ app.post("/compile-zip", async (req, res) => {
 		for (let i = 0; i < history.length; i++) {
 			const base64 = (await generateImage([history[i]]))[0];
 			zip.file(i+".png", base64.slice("data:image/png;base64,".length), {base64: true});
+			console.log("compiled " + i + ".png")
 		}
 		const data = await zip.generateAsync({type:"nodebuffer"});
 		res.setHeader('Content-type', 'application/zip');

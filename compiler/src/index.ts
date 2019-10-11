@@ -13,10 +13,13 @@ function compile(input: string): {elements: IElement[], err?: TypeErr[], history
 	const history: IElement[][] = [[]];
 	let runningCommands: Command[] = [];
 	for (const command of commands) {
-		runningCommands.push(command);
-		let elements = evaluate(runningCommands);
-		elements = coordinateFlip(elements);
-		history.push(elements);
+		try {
+			runningCommands.push(command);
+			let elements = evaluate(runningCommands);
+			elements = coordinateFlip(elements);
+			history.push(elements);
+		}
+		catch {}
 	}
 	return {elements: history[history.length - 1], err, history};
 }

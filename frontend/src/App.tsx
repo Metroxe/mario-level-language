@@ -13,13 +13,13 @@ import {
 	InputGroupAddon,
 	Jumbotron,
 	Modal, ModalBody, ModalHeader,
-	Spinner
+	Spinner, UncontrolledTooltip
 } from 'reactstrap';
 import "./App.css";
 import axios from "axios";
 import {levels} from "shared";
 import Instructions from "./instructions";
-
+import FileDownload from 'js-file-download';
 import TextEditor from "./TextEditor";
 import {on} from "cluster";
 import Grid from "./Grid";
@@ -45,6 +45,18 @@ const App: React.FC = () => {
 			const {data} = await axios.post(`${'production' === process.env.NODE_ENV ? "" : "http://localhost:8080"}/compile`, {input});
 			updateImage(data.base64);
 			updateErrors(data.err)
+		} catch (err) {
+			alert("There was an error, check the console");
+			console.log(err);
+		}
+		updateLoading(false);
+	}
+
+	async function getZip() {
+		updateLoading(true);
+		try {
+			const {data} = await axios.post(`${'production' === process.env.NODE_ENV ? "" : "http://localhost:8080"}/compile-zip`, {input}, {responseType: 'arraybuffer'});
+			FileDownload(data, 'mario_level_language.zip');
 		} catch (err) {
 			alert("There was an error, check the console");
 			console.log(err);
@@ -170,6 +182,10 @@ const App: React.FC = () => {
 						{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}
 						Make Image
 					</Button>
+						<Button className="mr-1" onClick={getZip} disabled={loading} color="primary">
+							{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}
+							Make Zip (This takes a really long time!)
+						</Button>
 					{
 						image &&
 						<Button className="mr-1" onClick={() => updateGrid(!grid)} color="primary">
