@@ -104,7 +104,7 @@ const App: React.FC = () => {
 
 			updateFileName(file.name.slice(0, file.name.length - 3));
 		}
-	}	
+	}
 
 	return (
 		<React.Fragment>
