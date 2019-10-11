@@ -94,9 +94,25 @@ const Instructions: React.FC = () => {
 				(5,0) QUESTION_MARK;<br/>
 				];<br/>
 			</code>
-			<p>All of of these coordinates are relative to itself. To move this variable around the map, you may now indicate a coordinate like a simple placement command.</p>
+			<p>All of these coordinates are relative to itself. To move this variable around the map, you may now indicate a coordinate like a simple placement command.</p>
 			<code>
 				(20,6) INITIAL_PLATFORM;
+			</code>
+			<hr/>
+
+			<h4>Coordinate Variables</h4>
+			<p>Make a variable for holding a location in the world. This can be used with adding and subtracting
+				. <i>(Please note that the arithmetic, cannot contain spaces and can only allow one operation at a time)</i>
+			</p>
+			<code>
+				# COORD VARIABLE EXAMPLE<br/>
+				COORD MID_SCREEN (50,7);<br/>
+				(MID_SCREEN, MID_SCREEN) DIAMOND_BRICK;<br/>
+			</code>
+			<p>The coordinates can be used with '+' and '-' to allow for relative placement</p>
+			<code>
+				# COORD MATH EXAMPLE
+				(MID_SCREEN+1, MID_SCREEN-1) DIAMOND_BRICK;
 			</code>
 
 		</React.Fragment>
