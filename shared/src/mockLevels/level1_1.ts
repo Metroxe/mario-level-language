@@ -1,8 +1,8 @@
 export default
 `
 #FIRST PART
-(0,14) CLOUD;
 (0,0) -> (70, 1) GROUND;
+(0,14) CLOUD;
 
 (16,6) QUESTION_MARK;
 (11,2) BUSH 3;
