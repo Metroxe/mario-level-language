@@ -1,4 +1,6 @@
 import { IElement, Sprite, SpriteCommand } from "shared";
+import {removeMath} from "../checkCoordVariableStatement";
+import {isFloat} from "../checkCoordinateStatement";
 
 export default (statement: string[], coords: {[key: string]: [number, number]} = {}): IElement[] => {
 	return [
@@ -26,10 +28,28 @@ export function determineSprite(s: SpriteCommand): Sprite {
 }
 
 export function coordValue(isX: boolean, input: string, coords: {[key: string]: [number, number]}): number {
-	const coord = coords[input];
-	if (!coord) {
-		return parseFloat(input);
+	if (isFloat(input)) {
+		return parseFloat(input)
+	}
+
+	console.log(removeMath(input));
+	const [err, name, math] = removeMath(input);
+
+	const coord = coords[name];
+
+	if (!coord || err) {
+		return parseFloat(name);
+	}
+
+	const val = isX ? coord[0] : coord[1];
+
+	if (!math) {
+		return val;
+	}
+
+	if (math[0]) {
+		return val + math[1];
 	} else {
-		return isX ? coord[0] : coord[1]
+		return val - math[1];
 	}
 }

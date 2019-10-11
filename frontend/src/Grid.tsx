@@ -45,8 +45,9 @@ const Grid: React.FC<Props> = (props: Props) => {
                 return;
             }
             context.drawImage(image, 0, 0);
-
-
+            if (props.toggle) {
+                drawBoard(context, canvas.width, canvas.height);
+            }
         };
     }
 
@@ -70,14 +71,16 @@ const Grid: React.FC<Props> = (props: Props) => {
         if (!root.current || !props.toggle || !props.updateCoordinates) {
             return;
         }
+        e.persist();
 
         let parent = root.current.parentElement!;
         let canvasX = parent.offsetLeft;
         let canvasY = parent.offsetTop;
         let mouseX = e.pageX;
         let mouseY = e.pageY;
+        let scrollX = parent.scrollLeft;
 
-        let x = Math.floor((mouseX - canvasX)/16);
+        let x = Math.floor((mouseX - canvasX + scrollX)/16);
         let y = Math.floor(Math.abs(mouseY - canvasY - root.current.height - 1)/16);
         props.updateCoordinates({x, y});
     }
