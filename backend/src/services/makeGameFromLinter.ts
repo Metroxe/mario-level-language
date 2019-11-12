@@ -1,7 +1,10 @@
 import {ILinterOutput} from "./linter";
 
 export interface IMakeGameOutput {
-
+	world: Array<{
+		name: string,
+		code: string,
+	}>
 }
 
 /**
@@ -9,6 +12,7 @@ export interface IMakeGameOutput {
  * @param input
  */
 async function makeGameFromLinter(input: ILinterOutput): Promise<IMakeGameOutput> {
+
 	return null;
 }
 

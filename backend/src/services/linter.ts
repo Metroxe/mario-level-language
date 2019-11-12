@@ -16,8 +16,12 @@ export interface ILinterOutput {
 	files: Array<{
 		fileName: string,
 		filePath: string, // the top level directory should be called 'root'
-		directoryPath: string[] // this should be a list of the directories in order back to root.
-		lintingErrors: any[] // use an interface from the library or make one that holds the linting info
+		linesOfCode: string // the number of lines of code
+		directoryPath: string[] // this should be a list of the directories in order back to root. project/src/level => [level, src, project]
+		lintingErrors: Array<{
+			lineNumber: number, // the line number the linting error was on
+			errors: any[] // use an interface from the library or make one that holds the linting info
+		}>
 	}>
 }
 
