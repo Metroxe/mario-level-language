@@ -1,11 +1,17 @@
-import {ILinterOutput} from "./linter";
+import {IFileLint, ILinterOutput} from "./linter";
 
-export interface IMakeGameOutput {
-	world: Array<{
-		name: string,
-		code: string,
-	}>
+interface ILevel {
+	marioMakerCode: string;
+	linterResult: IFileLint;
 }
+
+interface IWorld {
+	name: string;
+	subWorlds: IWorld[];
+	levels: ILevel[];
+}
+
+export type IMakeGameOutput = IWorld;
 
 /**
  * given the results from the linter create all of the code necessary to export the game
