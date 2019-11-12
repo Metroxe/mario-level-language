@@ -12,11 +12,12 @@ interface ILinterInput {
 	directory: string
 }
 
+// this should be a list of js files, not directories, and not other files that are not js.
 export interface IFileLint {
 	fileName: string,
 	filePath: string, // the top level directory should be called 'root'
 	linesOfCode: string // the number of lines of code
-	directoryPath: string[] // this should be a list of the directories in order back to root. project/src/level => [level, src, project]
+	directoryPath: string[] // this should be a list of the directories in order from root to file. project/src/level => [project, src, level]
 	lintingErrors: Array<{
 		lineNumber: number, // the line number the linting error was on
 		errors: any[] // use an interface from the library or make one that holds the linting info
