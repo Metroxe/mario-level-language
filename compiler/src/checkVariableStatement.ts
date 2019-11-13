@@ -11,7 +11,7 @@ function checkVariableStatement(statement: string[], variableNames: string[][]):
 		return [errs[0][0], retCommand]
 	}
 	for (const command of commands) {
-		if ([StatementType.PLACEMENT, StatementType.SCENERY, StatementType.DRAW, StatementType.FLAG, StatementType.PIPE].includes(command.type)) {
+		if (![StatementType.PLACEMENT, StatementType.SCENERY, StatementType.DRAW, StatementType.FLAG, StatementType.PIPE].includes(command.type)) {
 			return [{
 				statement: command.statement.join(" "),
 				message: "You cannot declare variables in a variable."
