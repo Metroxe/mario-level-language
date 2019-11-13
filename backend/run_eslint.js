@@ -1,5 +1,5 @@
 const exec = require('child_process').exec;
-var yourscript = exec('sh eslint.sh backend/services/dist',
+var yourscript = exec('sh eslint.sh backend/dist/services',
         (error, stdout, stderr) => {
             console.log(stdout); //json output
             console.log(stderr);
