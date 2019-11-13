@@ -11,10 +11,10 @@ function checkVariableStatement(statement: string[], variableNames: string[][]):
 		return [errs[0][0], retCommand]
 	}
 	for (const command of commands) {
-		if (command.type !== StatementType.PLACEMENT) {
+		if ([StatementType.PLACEMENT, StatementType.SCENERY, StatementType.DRAW, StatementType.FLAG, StatementType.PIPE].includes(command.type)) {
 			return [{
 				statement: command.statement.join(" "),
-				message: "You can only declare single block placements in a variable."
+				message: "You cannot declare variables in a variable."
 			}, command]
 		}
 	}
