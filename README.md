@@ -29,6 +29,8 @@ Language for making Mario levels.
 ### Testing Visualization With Postman (For Backend Only)
 1. Run Postman
 2. Enter a `POST` Request to the url `http://localhost:8080/makeWorld`
+> **Make sure backend is running.**
+
 > The body options should be `x-www-form-urlencoded` and should contain a key `repoURL` and value of any repo. (i.e. `github.com/algolia.places`)
 > Image should look like: 
 > ![image](https://i.ibb.co/JCV8dg6/Screen-Shot-2019-11-12-at-4-24-38-PM.png)
