@@ -19,10 +19,10 @@ app.post("/makeWorld", async ({body}, res) => {
 		res.setHeader('Content-type', 'application/zip');
 		res.setHeader('Content-disposition', 'attachment; filename=mario_level_language.zip');
 		res.end(data, "binary")
-		res.sendStatus(200);
+		res.status(200);
 	} catch (err) {
 		console.log(err);
 		res.status(500).send(err);
 	}
-	await deleteRepo(directory);
+	// await deleteRepo(directory);
 });

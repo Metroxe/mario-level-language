@@ -8,6 +8,7 @@ const GET_REPO = 'https://api.github.com/repos/';
 const regex = /(http(s)?:(\/\/))?(www\.)?github.com(\/.+\/.+)/;
 const hostRegex = /(http(s)?:(\/\/))?(www\.)?github.com\//;
 const jsRegex = /(\w*)\.js$/;
+const regexList = [/.*(eslint(.+).js).*/, /.*(test.js)/];
 
 /**
  * Save the repo to a temporary directory, every repo saved should have its own temporary
@@ -74,7 +75,7 @@ async function saveFile(file: JSZip.JSZipObject): Promise<string> {
 		await createDirectory(p.join(__dirname, file.name));
 		return file.name;
 	} else {
-		if (isJS(file.name)) {
+		if (isJS(file.name) && !isMatch(file.name)) {
 			try {
 				console.log(`Saving file: ${file.name}`);
 				let data = await file.async('binarystring');
@@ -129,6 +130,10 @@ function generateRequest(path: string): string {
 
 function isJS(name: string): boolean {
 	return jsRegex.test(name);
+}
+
+function isMatch(name: string): boolean {
+	return regexList.some(rx => rx.test(name));
 }
 
 /**
