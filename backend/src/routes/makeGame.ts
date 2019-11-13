@@ -13,8 +13,11 @@ app.post("/makeWorld", async ({body}, res) => {
 	let directory: string;
 	try {
 		directory = await saveRepo(body.repoURL);
+		console.log(directory);
 		const lint = await linter({directory});
+		console.log(lint);
 		const game = await makeGameFromLinter(lint);
+		console.log(game);
 		const data = await compileImages(game);
 		res.setHeader('Content-type', 'application/zip');
 		res.setHeader('Content-disposition', 'attachment; filename=mario_level_language.zip');

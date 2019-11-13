@@ -34,7 +34,7 @@ async function organizeWorlds(input: ILinterOutput): Promise<IWorld> {
 }
 
 function findSpot(level: ILevel, path: string[], node: IWorld[]): void {
-	if (path.length < 1) {
+	if (path.length < 2) {
 		if (!node[0].levels) {
 			node[0].levels = []
 		}
