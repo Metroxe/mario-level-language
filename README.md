@@ -33,7 +33,7 @@ Language for making Mario levels.
 
 > The body options should be `x-www-form-urlencoded` and should contain a key `repoURL` and value of any repo. (i.e. `github.com/algolia.places`)
 > Image should look like: 
-> ![image](https://i.ibb.co/JCV8dg6/Screen-Shot-2019-11-12-at-4-24-38-PM.png)
+> ![image](https://lh3.googleusercontent.com/nMfj9BUbes7T5DOXwhXAAdbinrUoIUckE1aErHF0IaguquET8sNm7hZLmSm_VJMV39aGjUD8xOoueGIHNhAWF9vlliZLLUeFXUgPvXif3amr2D3lgDApV_kGGkOGTN_IL9YjGSRveW1hhF7hxDsGnGplJfJWeryx_WIkcRSMIZ57bIeP83s6DPywazvOGvoRqryLUV26TYXxOsiG9lQORrVAlU5hnQtN2ux-08MQV3qYNodFyA29_fMsOCj9sCKjQdw-3nZN-I7idaGeS5cvy8Gvi1jjFrkd1R79QziP-n8eMa-7Y-gMKNmJ8UeA5HQtC_Nt1lhHbX6GZZP6GOqshjkTtzJOcWreNXARbniLoALlzEh5O2uK7uT9iq4eTjGhRDHV3Xal5OzUe0xOytCR7IWWC83WGUYNFxxodcIvkDFTuYNAr3SZgGDAmxNPIABmNLKzQxsao3CQyl8EHIIFDwbwsOmJAKe-mYw7vg7H8c78Hj-qhEcuWZDwJXJzOiyz1iX0McX4mjY5YVtPpgPodasVLOXCP7H5nqUtsV5Rc0yH9nxiqmiVbk3NlaDk6Jz-D6wIS2BYv-sNA1Up4k3OdCdbceKxz1xMlROK1l5bcL0gQnZ259d9z7MJ7CZO1NYvrjFn_mb-Qfpqg7ndlASSTtQ6N0uGSmA2H-XaeiI0J3xWqmEGclVFGE8=w1984-h1246-no)
 3. Click `SEND` to see you request. (Check console)
 
 ### Testing with other tools
