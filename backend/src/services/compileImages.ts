@@ -3,7 +3,6 @@ import {IMakeGameOutput, IWorld} from "./makeGameFromLinter";
 import compile from "compiler";
 import generateImage from "mario-level-generator";
 
-
 async function compileImages(input: IMakeGameOutput) {
 	const zip = new JSZip();
 	await recurseAndCompile(zip, input);
