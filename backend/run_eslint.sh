@@ -1,5 +1,5 @@
 #!/bin/sh
-`npm i -g eslint`
+npm i -g eslint
 run_eslint() {
     while [ "$1" ]; do
         if [ -d "$1" ]; then
