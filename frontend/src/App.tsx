@@ -25,7 +25,7 @@ import {on} from "cluster";
 import Grid from "./Grid";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-
+import { tsConstructorType } from '@babel/types';
 
 const App: React.FC = () => {
 
@@ -233,9 +233,6 @@ const App: React.FC = () => {
           					value={repoURL}
          					onChange={getRepoURL}
      				    />
-						<Button className="mr-1" onClick={() => {console.log(repoURL)}} color="primary">
-							Submit
-						</Button>
      				</form>
 				</TabPanel>
 			</Tabs>
