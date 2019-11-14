@@ -23,6 +23,8 @@ import FileDownload from 'js-file-download';
 import TextEditor from "./TextEditor";
 import {on} from "cluster";
 import Grid from "./Grid";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 const App: React.FC = () => {
 
@@ -145,7 +147,13 @@ const App: React.FC = () => {
 					<Button className="ml-1" color="primary" onClick={toggle}>Instructions</Button>
 				</p>
 			</Jumbotron>
-			<Card className="mt-4">
+			<Tabs>
+  				  	<TabList>
+     					<Tab>DSL</Tab>
+     					<Tab>VPL</Tab>
+   					 </TabList>
+					<TabPanel>
+					<Card className="mt-4">
 				<CardBody>
 					<div>
 						<ButtonGroup className="mb-3">
@@ -209,6 +217,12 @@ const App: React.FC = () => {
 					{/*<CardImg src={image} style={{width: 'fit-content'}}/>*/}
 				</Card>
 			}
+					</TabPanel>
+					<TabPanel>
+						<h2>Any content 2</h2>
+					</TabPanel>
+			</Tabs>
+			
 		</Container>
 		</React.Fragment>
 	);
