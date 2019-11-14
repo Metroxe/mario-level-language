@@ -7,7 +7,7 @@
 import fs from 'fs-extra'; // might need to read files
 import {readFiles} from "./repoFunctions";
 import exampleLinterOut from "./exampleLinterOutput"; // use this of make one yourself *NOT TESTED*
-import directory from "../routes/makeGame.ts"
+import {directory} from "../routes/makeGame"
 
 interface ILinterInput {
 	directory: string
@@ -35,6 +35,10 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
 
 export default linter;
 
+
+console.log(directory);
+
+/*
 const exec = require('child_process').exec;
 // need to check directory path
 var yourscript = exec('sh eslint.sh ${directory}',
@@ -55,7 +59,7 @@ var yourscript = exec('sh eslint.sh ${directory}',
                 var directoryPath;
                 var lintingErrors;
                 var lineNumber;
-                var errors
+                var errors;
 
                 var lintResult = {
                     fileName: obj.filePath.split("/").pop(),
@@ -66,7 +70,7 @@ var yourscript = exec('sh eslint.sh ${directory}',
                         lineNumber: obj.message[0].line,
                         errors: obj.message[0].message
                     }>
-                };
+                 };
             }
 
-        });
+        });*/
