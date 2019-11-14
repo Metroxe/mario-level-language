@@ -8,6 +8,8 @@ function compileCodeFromLint(file: IFileLint): string {
 	code += gameVariables + "\n";
 	code += "(0,0) START;\n";
 	let lineCount = 50;
+	let startingRandomHard = Math.floor(Math.random() * 100000000000000);
+	let startingRandomEasy = Math.floor(Math.random() * 100000000000000);
 	do {
 		code += `(${lineCount - 50 + 10}, 0) `;
 		let foundError = false;
@@ -18,9 +20,11 @@ function compileCodeFromLint(file: IFileLint): string {
 			}
 		}
 		if (foundError) {
-			code += `${hardNames[Math.floor(Math.random()*hardNames.length)]};\n`
+			code += `${hardNames[startingRandomHard % hardNames.length]};\n`;
+			startingRandomHard++;
 		} else {
-			code += `${easyNames[Math.floor(Math.random()*easyNames.length)]};\n`
+			code += `${easyNames[startingRandomEasy % easyNames.length]};\n`;
+			startingRandomEasy++;
 		}
 		lineCount += 50;
 	} while(lineCount < file.linesOfCode);

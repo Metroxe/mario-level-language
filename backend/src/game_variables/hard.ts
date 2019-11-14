@@ -1,8 +1,7 @@
-const hardNames = ["HARD_ONE", "HARD_TWO"];
+const hardNames = ["PIPE_IN_THE_SKY", "LEAP_OF_FAITH"];
 
 const hard1 =
 `VAR ${hardNames[0]} [
-(0,0)->(4,2) GROUND;
 (0,0)->(4,2) GROUND;
 (5,0) PIPE 4;
 (7,0) PIPE 6;
@@ -23,11 +22,15 @@ const hard1 =
 
 const hard2 =
 `VAR ${hardNames[1]} [
-(0,0)->(49,0) GROUND;
-(0,1)->(4,2) GROUND;
-(5,1) GROUND;
-(45,1)->(49,2) GROUND;
-(44,1) GROUND;
+(0,0)->(4,2) GROUND;
+(10,0)->(10,3) GROUND;
+(20,0)->(21,5) GROUND;
+(34,0)->(34,1) GROUND;
+(40,2)->(44,2) DIAMOND_BRICK;
+(21,9) QUESTION_MARK;
+(45,0)->(49,2) GROUND;
+(40,8) CLOUD 1;
+(10,10) CLOUD 2;
 ];`;
 
 export {hard1, hard2, hardNames}
