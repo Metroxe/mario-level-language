@@ -7,3 +7,5 @@ var yourscript = exec('sh eslint.sh backend/dist/services',
                 console.log(`exec error: ${error}`);
             }
         });
+
+export yourscript;

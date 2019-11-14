@@ -7,7 +7,7 @@
 import fs from 'fs-extra'; // might need to read files
 import {readFiles} from "./repoFunctions";
 import exampleLinterOut from "./exampleLinterOutput"; // use this of make one yourself *NOT TESTED*
-
+import directory from "../routes/makeGame.ts"
 
 interface ILinterInput {
 	directory: string
@@ -30,7 +30,43 @@ export interface ILinterOutput {
 }
 
 async function linter(input: ILinterInput): Promise<ILinterOutput> {
-	return exampleLinterOut; // this is an example I made just for testing, remove when done.
+	return exampleLinterOut; // replace the var with the new json array
 }
 
 export default linter;
+
+const exec = require('child_process').exec;
+// need to check directory path
+var yourscript = exec('sh eslint.sh ${directory}',
+        (error, stdout, stderr) => {
+            console.log(stdout); //json array output
+            console.log(stderr);
+            if (error !== null) {
+                console.log(`exec error: ${error}`);
+            }
+
+            // parsing
+            for (var i = 0; i<stdout.length; i++){
+                var obj = stdout[i];
+                console.log(obj);
+                var fileNanme;
+                var filePath;
+                var linesOfCode;
+                var directoryPath;
+                var lintingErrors;
+                var lineNumber;
+                var errors
+
+                var lintResult = {
+                    fileName: obj.filePath.split("/").pop(),
+                    filePath: obj.filePath,
+                    //linesOfCode: stdout.lines,
+                    //directoryPath: string[]
+                    lintingErrors: Array<{
+                        lineNumber: obj.message[0].line,
+                        errors: obj.message[0].message
+                    }>
+                };
+            }
+
+        });

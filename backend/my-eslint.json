@@ -19,6 +19,8 @@
         "no-extra-semi": "error",
         "no-import-assign": "off",
         "no-misleading-character-class": "error",
-        "no-obj-calls": "error"
+        "no-obj-calls": "error",
+
+        "no-unused-vars": 0
     }
 }

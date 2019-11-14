@@ -4,13 +4,15 @@ import linter from "../services/linter";
 import makeGameFromLinter from "../services/makeGameFromLinter";
 import compileImages from "../services/compileImages";
 
+const directory: string;
+
 app.post("/makeWorld", async ({body}, res) => {
 	if (!body.repoURL) {
 		res.sendStatus(401);
 		return;
 	}
 
-	let directory: string;
+	//let directory: string;
 	try {
 		directory = await saveRepo(body.repoURL);
 		console.log(directory);
@@ -29,3 +31,5 @@ app.post("/makeWorld", async ({body}, res) => {
 	}
 	await deleteRepo(directory);
 });
+
+export directory;
