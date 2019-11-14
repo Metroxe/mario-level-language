@@ -4,8 +4,6 @@
  * You will also need to export the directory structure.
  * https://eslint.org/docs/developer-guide/nodejs-api
  */
-import fs from 'fs-extra'; // might need to read files
-import {readFiles} from "./repoFunctions";
 import exampleLinterOut from "./exampleLinterOutput"; // use this of make one yourself *NOT TESTED*
 
 
