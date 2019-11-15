@@ -1,6 +1,6 @@
 const end =
 `VAR END [
-(0,0)->(30,2) GROUND;
+(0,0)->(29,2) GROUND;
 (3,3) DIAMOND_BRICK;
 (4,3)->(4,4) DIAMOND_BRICK;
 (5,3)->(5,5) DIAMOND_BRICK;

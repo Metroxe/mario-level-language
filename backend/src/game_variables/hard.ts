@@ -1,19 +1,67 @@
-const hardNames = ["HARD_ONE", "HARD_TWO"];
+const hardNames = ["PIPE_IN_THE_SKY", "LEAP_OF_FAITH", "PIPE_TREE"];
 
 const hard1 =
 `VAR ${hardNames[0]} [
-(0,0)->(49,2) GROUND;
-(4,3)->(44,3) DIAMOND_BRICK;
-(5,4)->(43,4) DIAMOND_BRICK;
+(0,0)->(4,2) GROUND;
+(5,0) PIPE 4;
+(7,0) PIPE 6;
+(13,0) PIPE 8;
+(15,0) PIPE 10;
+(21,0) PIPE 12;
+(23,0) PIPE 14;
+(25,0) PIPE 14;
+(27,0) PIPE 14;
+(20,8) QUESTION_MARK;
+(45, 7) QUESTION_MARK;
+(19,4)->(20,4) BRICK;
+(36,10) CLOUD 2;
+(25,16) CLOUD 1;
+(3,12) CLOUD 2;
+(45,0)->(49,2) GROUND;
 ];`;
 
 const hard2 =
 `VAR ${hardNames[1]} [
-(0,0)->(49,0) GROUND;
-(0,1)->(4,2) GROUND;
-(5,1) GROUND;
-(45,1)->(49,2) GROUND;
-(44,1) GROUND;
+(0,0)->(4,2) GROUND;
+(10,0)->(10,3) GROUND;
+(20,0)->(21,5) GROUND;
+(34,0)->(34,1) GROUND;
+(40,2)->(44,2) DIAMOND_BRICK;
+(21,9) QUESTION_MARK;
+(45,0)->(49,2) GROUND;
+(40,8) CLOUD 1;
+(10,10) CLOUD 2;
 ];`;
 
-export {hard1, hard2, hardNames}
+const hard3 =
+`VAR ${hardNames[2]} [
+(0,0)->(4,2) GROUND;
+(7,0) PIPE 2;
+(14,0) PIPE 30;
+(7,6)->(8,6) DIAMOND_BRICK;
+(7,7) PIPE 23;
+(13,4) DIAMOND_BRICK;
+(9,7) DIAMOND_BRICK;
+(11,11) DIAMOND_BRICK;
+(11,15) DIAMOND_BRICK;
+(11,19) QUESTION_MARK;
+(9,19)->(10,19) BRICK;
+(12,19)->(13,19) BRICK;
+(13,23) DIAMOND_BRICK;
+(9,26) DIAMOND_BRICK;
+(10,30)->(13,30) DIAMOND_BRICK;
+(5,6)->(6,6) DIAMOND_BRICK;
+(6,10) QUESTION_MARK;
+(20,29)->(25,29) BRICK;
+(25,33) QUESTION_MARK;
+(45,0)->(49,2) GROUND;
+(28,26) DIAMOND_BRICK;
+(33,22) DIAMOND_BRICK;
+(30,17) DIAMOND_BRICK;
+(33,13)->(40,13) BRICK;
+(3,25) CLOUD 1;
+(18,35) CLOUD 2;
+(28,20) CLOUD 1;
+];`;
+
+export {hard1, hard2, hard3, hardNames}

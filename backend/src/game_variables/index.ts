@@ -1,5 +1,5 @@
 import {easy1, easy2} from "./easy";
-import {hard1, hard2} from "./hard";
+import {hard1, hard2, hard3} from "./hard";
 import start from "./start";
 import end from "./end";
 
@@ -15,6 +15,8 @@ ${easy2}
 ${hard1}
 
 ${hard2}
+
+${hard3}
 
 # start
 ${start}
