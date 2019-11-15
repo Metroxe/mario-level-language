@@ -5,15 +5,16 @@ import makeGameFromLinter from "../services/makeGameFromLinter";
 import compileImages from "../services/compileImages";
 
 
-app.post("/makeWorld", async ({body}, res) => {
-	if (!body.repoURL) {
+app.post("/makeWorld", async (req, res) => {
+	if (!req.body.repoURL) {
+		console.log("failed");
 		res.sendStatus(401);
 		return;
 	}
 
 	let directory: string;
 	try {
-		directory = await saveRepo(body.repoURL);
+		directory = await saveRepo(req.body.repoURL);
 		console.log(directory);
 		const lint = await linter({directory});
 		console.log(lint);
