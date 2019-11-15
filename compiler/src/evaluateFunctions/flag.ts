@@ -2,7 +2,7 @@ import { IElement, Sprite } from "shared";
 import reverseElement from "../reverseElement";
 import {coordValue} from "./placement";
 
-export default (statement: string[], coords: {[key: string]: [number, number]}): IElement[] => {
+export default (statement: string[], coords: {[key: string]: [number, number]} = {}): IElement[] => {
 	const elements: IElement[] = [];
 	const x = coordValue(true, statement[1], coords);
 	const y = coordValue(false, statement[3], coords);

@@ -1,8 +1,6 @@
 import {app} from "../index";
 import generateImage from "mario-level-generator";
 import compile from "compiler";
-// @ts-ignore
-import * as videoshow from "videoshow";
 
 app.post("/compile", async (req, res) => {
 	if (!req.body.input) {
