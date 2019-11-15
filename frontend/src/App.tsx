@@ -126,6 +126,7 @@ const App: React.FC = () => {
 
 	function getRepoURL(e: React.FormEvent<HTMLInputElement>) {
 		updateRepoURL(e.currentTarget.value);
+		console.log(e.currentTarget.value);
 	}
 
 	function toggle_for_tabs(tab:string) {
@@ -258,7 +259,7 @@ const App: React.FC = () => {
 					<Form>
 						<FormGroup>
 							<Label for="repoURL">repoURL</Label>
-							<Input type="text" name="repoURL" id="repoURL" placeholder="plese enter the repoURL here"></Input>
+							<Input type="text" name="repoURL" id="repoURL" placeholder="plese enter the repoURL here" onChange={getRepoURL}></Input>
 							<Button className="mr-1" onClick={sendRepoURL} color="primary">
 								Submit
 							</Button>
