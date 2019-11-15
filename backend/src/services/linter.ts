@@ -33,7 +33,7 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
 
     console.log(report);
 
-    let output: ILinterOutput = {files: []}
+    let output: ILinterOutput = {files: []};
 
     for(let i=0; i<report.results.length;i++){
         let file: IFileLint;
@@ -46,8 +46,8 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
         directoryPath[1] = report.results[i].filePath.substring(report.results[i].filePath.indexOf('/'), report.results[i].filePath.lastIndexOf('/'));
         directoryPath[2] = file.fileName;
         file.directoryPath = directoryPath;
-	file.lintingErrors.push({lineNumber: report.results[i].messages[0].line, errors:[report.results[i].messages[0].message]})
-        output.files.push()
+	file.lintingErrors.push({lineNumber: report.results[i].messages[0].line, errors:[report.results[i].messages[0].message]});
+        output.files.push();
     }
 
     //return exampleLinterOut;
