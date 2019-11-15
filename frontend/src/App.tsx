@@ -13,7 +13,9 @@ import {
 	InputGroupAddon,
 	Jumbotron,
 	Modal, ModalBody, ModalHeader,
-	Spinner, UncontrolledTooltip
+	Spinner, UncontrolledTooltip,
+	TabContent, TabPane, Nav, NavItem, NavLink,
+	Form, FormGroup, Label
 } from 'reactstrap';
 import "./App.css";
 import axios from "axios";
@@ -23,6 +25,8 @@ import FileDownload from 'js-file-download';
 import TextEditor from "./TextEditor";
 import {on} from "cluster";
 import Grid from "./Grid";
+import classnames from 'classnames';
+
 
 const App: React.FC = () => {
 
@@ -37,6 +41,8 @@ const App: React.FC = () => {
 	const [fileName, updateFileName] = useState('');
 	const [fileOpen, updateFileOpen] = useState(false);
 	const upload: RefObject<HTMLInputElement> = useRef(null);
+	const [repoURL, updateRepoURL] = useState('');
+	const [activeTab, updateActiveTab] = useState('1');
 
 
 	async function getImage() {
@@ -118,6 +124,25 @@ const App: React.FC = () => {
 		}
 	}
 
+	function getRepoURL(e: React.FormEvent<HTMLInputElement>) {
+		updateRepoURL(e.currentTarget.value);
+	}
+
+	function toggle_for_tabs(tab:string) {
+		if (activeTab !== tab) updateActiveTab(tab);
+	}
+
+	async function sendRepoURL() {
+		updateLoading(true);
+		try {
+			const {data} = await axios.post(`${'production' === process.env.NODE_ENV ? "" : "http://localhost:8080"}/makeWorld`, {repoURL});
+		} catch (err) {
+			alert("There was an error, check the console");
+			console.log(err);
+		}
+		updateLoading(false);
+	}
+
 	return (
 		<React.Fragment>
 		<Container>
@@ -145,70 +170,102 @@ const App: React.FC = () => {
 					<Button className="ml-1" color="primary" onClick={toggle}>Instructions</Button>
 				</p>
 			</Jumbotron>
-			<Card className="mt-4">
-				<CardBody>
-					<div>
-						<ButtonGroup className="mb-3">
-							<Button onClick={useMock(levels.examples.trim())}>Example</Button>
-							<Button onClick={useMock(levels.level1_1.trim())}>Level 1-1</Button>
-						</ButtonGroup>
-					</div>
-					<div>
-						<ButtonGroup className="mb-3">
-							<Button onClick={createNew}>Clear</Button>
-							<Button onClick={toggleFile}>Save</Button>
-							<Button onClick={uploadFile}>Upload</Button>
-						</ButtonGroup>
-						<input ref={upload} onChange={handleUploaded} type='file' name='file' accept='.mm' hidden/>
-					</div>
-					<Modal isOpen={fileOpen} toggle={toggleFile}>
-						<ModalHeader toggle={toggleFile}>Save file</ModalHeader>
-						<ModalBody>
-							<InputGroup>
-								<Input name='text' placeholder='File Name' value={fileName} onChange={(e) => updateFileName(e.currentTarget.value)}/>
-								<InputGroupAddon addonType='append'>
-									<Button color='info' onClick={saveFile}>Save</Button>
-								</InputGroupAddon>
-							</InputGroup>
-						</ModalBody>
-					</Modal>
-					{/*<Input className="mb-3" type="textarea" name="text" id="codeEntry" value={input} onChange={onChange}/>*/}
-					<TextEditor onChange={onChange} value={input}/>
-					{
-						errors.length > 0 && <Alert color="danger">
-							{errors.map(createError)}
-						</Alert>
-					}
-					<Button className="mr-1" onClick={getImage} disabled={loading} color="primary">
-						{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}
-						Make Image
-					</Button>
-						<Button className="mr-1" onClick={getZip} disabled={loading} color="primary">
-							{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}
-							Make Zip (This takes a really long time!)
-						</Button>
+			<Nav tabs>
+				<NavItem>
+					<NavLink
+						className={classnames({active: activeTab === '1'})}
+						onClick={() => {toggle_for_tabs('1');}}
+					>
+						DSL
+					</NavLink>
+				</NavItem>
+				<NavItem>
+					<NavLink
+						className={classnames({active: activeTab === '2'})}
+						onClick={() => {toggle_for_tabs('2');}}
+					>
+						VPL
+					</NavLink>
+				</NavItem>
+			</Nav>
+			<TabContent activeTab={activeTab}>
+				<TabPane tabId="1">
+					<Card className="mt-4">
+						<CardBody>
+							<div>
+								<ButtonGroup className="mb-3">
+									<Button onClick={useMock(levels.examples.trim())}>Example</Button>
+									<Button onClick={useMock(levels.level1_1.trim())}>Level 1-1</Button>
+								</ButtonGroup>
+							</div>
+							<div>
+								<ButtonGroup className="mb-3">
+									<Button onClick={createNew}>Clear</Button>
+									<Button onClick={toggleFile}>Save</Button>
+									<Button onClick={uploadFile}>Upload</Button>
+								</ButtonGroup>
+								<input ref={upload} onChange={handleUploaded} type='file' name='file' accept='.mm' hidden/>
+							</div>
+							<Modal isOpen={fileOpen} toggle={toggleFile}>
+								<ModalHeader toggle={toggleFile}>Save file</ModalHeader>
+								<ModalBody>
+									<InputGroup>
+										<Input name='text' placeholder='File Name' value={fileName} onChange={(e) => updateFileName(e.currentTarget.value)}/>
+										<InputGroupAddon addonType='append'>
+											<Button color='info' onClick={saveFile}>Save</Button>
+										</InputGroupAddon>
+									</InputGroup>
+								</ModalBody>
+							</Modal>
+							{/*<Input className="mb-3" type="textarea" name="text" id="codeEntry" value={input} onChange={onChange}/>*/}
+							<TextEditor onChange={onChange} value={input}/>
+							{
+								errors.length > 0 && <Alert color="danger">
+									{errors.map(createError)}
+								</Alert>
+							}
+							<Button className="mr-1" onClick={getImage} disabled={loading} color="primary">
+								{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}
+								Make Image
+							</Button>
+							<Button className="mr-1" onClick={getZip} disabled={loading} color="primary">
+								{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}
+								Make Zip (This takes a really long time!)
+							</Button>
+							{
+								image &&
+								<Button className="mr-1" onClick={() => updateGrid(!grid)} color="primary">
+									Toggle Grid
+								</Button>
+							}
+							{grid && <p>x: {cord.x}, y: {cord.y}</p>}
+
+							{/*<Button color="primary" disabled={loading}>*/}
+							{/*	{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}*/}
+							{/*	Make Video*/}
+							{/*</Button>*/}
+						</CardBody>
+					</Card>
 					{
 						image &&
-						<Button className="mr-1" onClick={() => updateGrid(!grid)} color="primary">
-							Toggle Grid
-						</Button>
-
+						<Card className="mt-4 mb-4" style={{overflowX: 'scroll'}}>
+							<Grid image={image} toggle={grid} updateCoordinates={updateCord}/>
+							{/*<CardImg src={image} style={{width: 'fit-content'}}/>*/}
+						</Card>
 					}
-					{grid && <p>x: {cord.x}, y: {cord.y}</p>}
-
-					{/*<Button color="primary" disabled={loading}>*/}
-					{/*	{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}*/}
-					{/*	Make Video*/}
-					{/*</Button>*/}
-				</CardBody>
-			</Card>
-			{
-				image &&
-				<Card className="mt-4 mb-4" style={{overflowX: 'scroll'}}>
-					<Grid image={image} toggle={grid} updateCoordinates={updateCord}/>
-					{/*<CardImg src={image} style={{width: 'fit-content'}}/>*/}
-				</Card>
-			}
+				</TabPane>
+				<TabPane tabId="2">
+					<Form>
+						<FormGroup>
+							<Label for="repoURL">repoURL</Label>
+							<Input type="text" name="repoURL" id="repoURL" placeholder="plese enter the repoURL here" onChange={getRepoURL}></Input>
+							<Button className="mr-1" onClick={sendRepoURL} color="primary">
+								Submit
+							</Button>
+						</FormGroup>
+					</Form>
+				</TabPane>
+			</TabContent>
 		</Container>
 		</React.Fragment>
 	);
