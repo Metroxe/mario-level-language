@@ -13,7 +13,9 @@ import {
 	InputGroupAddon,
 	Jumbotron,
 	Modal, ModalBody, ModalHeader,
-	Spinner, UncontrolledTooltip
+	Spinner, UncontrolledTooltip,
+	TabContent, TabPane, Nav, NavItem, NavLink,
+	Form, FormGroup, Label
 } from 'reactstrap';
 import "./App.css";
 import axios from "axios";
@@ -23,8 +25,7 @@ import FileDownload from 'js-file-download';
 import TextEditor from "./TextEditor";
 import {on} from "cluster";
 import Grid from "./Grid";
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
+import classnames from 'classnames';
 
 
 const App: React.FC = () => {
@@ -41,6 +42,7 @@ const App: React.FC = () => {
 	const [fileOpen, updateFileOpen] = useState(false);
 	const upload: RefObject<HTMLInputElement> = useRef(null);
 	const [repoURL, updateRepoURL] = useState('');
+	const [activeTab, updateActiveTab] = useState('1');
 
 
 	async function getImage() {
@@ -126,6 +128,21 @@ const App: React.FC = () => {
 		updateRepoURL(e.currentTarget.value);
 	}
 
+	function toggle_for_tabs(tab:string) {
+		if (activeTab !== tab) updateActiveTab(tab);
+	}
+
+	async function sendRepoURL() {
+		updateLoading(true);
+		try {
+			const {data} = await axios.post(`${'production' === process.env.NODE_ENV ? "" : "http://localhost:8080"}/makeGame`, {repoURL});
+		} catch (err) {
+			alert("There was an error, check the console");
+			console.log(err);
+		}
+		updateLoading(false);
+	}
+
 	return (
 		<React.Fragment>
 		<Container>
@@ -153,12 +170,24 @@ const App: React.FC = () => {
 					<Button className="ml-1" color="primary" onClick={toggle}>Instructions</Button>
 				</p>
 			</Jumbotron>
-			<Tabs>
-  				<TabList>
-     				<Tab>DSL</Tab>
-     				<Tab>VPL</Tab>
-   				</TabList>
-				<TabPanel>
+			<Nav tabs>
+				<NavItem>
+					<NavLink
+						className={classnames({active: activeTab === '1'})}
+						onClick={() => {toggle_for_tabs('1');}}
+					>
+						DSL
+					</NavLink>
+					<NavLink
+						className={classnames({active: activeTab === '2'})}
+						onClick={() => {toggle_for_tabs('2');}}
+					>
+						VPL
+					</NavLink>
+				</NavItem>
+			</Nav>
+			<TabContent activeTab={activeTab}>
+				<TabPane tabId="1">
 					<Card className="mt-4">
 						<CardBody>
 							<div>
@@ -197,16 +226,15 @@ const App: React.FC = () => {
 								{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}
 								Make Image
 							</Button>
-								<Button className="mr-1" onClick={getZip} disabled={loading} color="primary">
-									{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}
-									Make Zip (This takes a really long time!)
-								</Button>
+							<Button className="mr-1" onClick={getZip} disabled={loading} color="primary">
+								{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}
+								Make Zip (This takes a really long time!)
+							</Button>
 							{
 								image &&
 								<Button className="mr-1" onClick={() => updateGrid(!grid)} color="primary">
 									Toggle Grid
 								</Button>
-
 							}
 							{grid && <p>x: {cord.x}, y: {cord.y}</p>}
 
@@ -223,23 +251,19 @@ const App: React.FC = () => {
 							{/*<CardImg src={image} style={{width: 'fit-content'}}/>*/}
 						</Card>
 					}
-				</TabPanel>
-				<TabPanel>
-					<form>
-      				   <label htmlFor="repoURL">repoURL</label>
-         				<input
-         					type="text"
-         					name="repoURL"
-          					value={repoURL}
-         					onChange={getRepoURL}
-     				    />
-						<Button className="mr-1" onClick={() => {console.log(repoURL)}} color="primary">
-							Submit
-						</Button>
-     				</form>
-				</TabPanel>
-			</Tabs>
-			
+				</TabPane>
+				<TabPane tabId="2">
+					<Form>
+						<FormGroup>
+							<Label for="repoURL">repoURL</Label>
+							<Input type="text" name="repoURL" id="repoURL" placeholder="plese enter the repoURL here"></Input>
+							<Button className="mr-1" onClick={sendRepoURL} color="primary">
+								Submit
+							</Button>
+						</FormGroup>
+					</Form>
+				</TabPane>
+			</TabContent>
 		</Container>
 		</React.Fragment>
 	);
