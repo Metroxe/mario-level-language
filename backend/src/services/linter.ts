@@ -51,7 +51,7 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
     }
 
     //return exampleLinterOut;
-	return files;
+	
 
 }
 
