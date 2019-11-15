@@ -135,7 +135,7 @@ const App: React.FC = () => {
 	async function sendRepoURL() {
 		updateLoading(true);
 		try {
-			const {data} = await axios.post(`${'production' === process.env.NODE_ENV ? "" : "http://localhost:8080"}/makeGame`, {repoURL});
+			const {data} = await axios.post(`${'production' === process.env.NODE_ENV ? "" : "http://localhost:8080"}/makeWorld`, {repoURL});
 		} catch (err) {
 			alert("There was an error, check the console");
 			console.log(err);
