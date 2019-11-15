@@ -31,9 +31,10 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
 	const report: LintReport = cli.executeOnFiles([input.directory]);
 	//TODO: turn report into ILinterOutput
 
-    console.log(report);
+    console.log(report.results);
 
-    let files: Array<IFileLint>;
+    let output: ILinterOutput = {files: []}
+
 
     for(let i=0; i<report.results.length;i++){
         let file: IFileLint;
@@ -43,20 +44,15 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
 
         let directoryPath: string[];
         directoryPath[0] = report.results[i].filePath.split("/")[1];
-        directoryPath[1] = report.results[i].filePath.substring(report.results[i].filePath.firstIndexOf('/'), report.results[i].filePath.lastIndexOf('/'));
+        directoryPath[1] = report.results[i].filePath.substring(report.results[i].filePath.indexOf('/'), report.results[i].filePath.lastIndexOf('/'));
         directoryPath[2] = file.fileName;
         file.directoryPath = directoryPath;
-
-        file.lineNumber = report.results[i].messages[0].line,
-        file.errors = report.results[i].messages[0].message;
-
-        files.add(file);
+	    file.lintingErrors.push({lineNumber: report.results[i].messages[0].line, errors:[report.results[i].messages[0].message]});
+        output.files.push();
     }
 
-    //return exampleLinterOut;
-	return files;
+	return output;
 
 }
 
 export default linter;
-
