@@ -46,11 +46,8 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
         directoryPath[1] = report.results[i].filePath.substring(report.results[i].filePath.firstIndexOf('/'), report.results[i].filePath.lastIndexOf('/'));
         directoryPath[2] = file.fileName;
         file.directoryPath = directoryPath;
-
-        file.lineNumber = report.results[i].messages[0].line,
-        file.errors = report.results[i].messages[0].message;
-
-        files.add(file);
+	file.lintingErrors.push(report.results[i].messages[0].line,report.results[i].messages[0].message);
+        files.push(file);
     }
 
     //return exampleLinterOut;
