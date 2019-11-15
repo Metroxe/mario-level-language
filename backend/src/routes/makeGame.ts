@@ -4,7 +4,6 @@ import linter from "../services/linter";
 import makeGameFromLinter from "../services/makeGameFromLinter";
 import compileImages from "../services/compileImages";
 
-const directory: string;
 
 app.post("/makeWorld", async ({body}, res) => {
 	if (!body.repoURL) {
@@ -12,7 +11,7 @@ app.post("/makeWorld", async ({body}, res) => {
 		return;
 	}
 
-	//let directory: string;
+	let directory: string;
 	try {
 		directory = await saveRepo(body.repoURL);
 		console.log(directory);
@@ -23,7 +22,7 @@ app.post("/makeWorld", async ({body}, res) => {
 		const data = await compileImages(game);
 		res.setHeader('Content-type', 'application/zip');
 		res.setHeader('Content-disposition', 'attachment; filename=mario_level_language.zip');
-		res.end(data, "binary")
+		res.end(data, "binary");
 		res.status(200);
 	} catch (err) {
 		console.log(err);
@@ -31,5 +30,3 @@ app.post("/makeWorld", async ({body}, res) => {
 	}
 	await deleteRepo(directory);
 });
-
-export directory;

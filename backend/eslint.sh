@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "$1"
 npm i -g eslint
 run_eslint() {
     while [ "$1" ]; do
