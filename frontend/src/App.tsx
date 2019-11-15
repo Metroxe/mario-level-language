@@ -178,6 +178,8 @@ const App: React.FC = () => {
 					>
 						DSL
 					</NavLink>
+				</NavItem>
+				<NavItem>
 					<NavLink
 						className={classnames({active: activeTab === '2'})}
 						onClick={() => {toggle_for_tabs('2');}}
