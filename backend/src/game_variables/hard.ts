@@ -1,4 +1,4 @@
-const hardNames = ["PIPE_IN_THE_SKY", "LEAP_OF_FAITH"];
+const hardNames = ["PIPE_IN_THE_SKY", "LEAP_OF_FAITH", "PIPE_TREE"];
 
 const hard1 =
 `VAR ${hardNames[0]} [
@@ -33,4 +33,35 @@ const hard2 =
 (10,10) CLOUD 2;
 ];`;
 
-export {hard1, hard2, hardNames}
+const hard3 =
+`VAR ${hardNames[2]} [
+(0,0)->(4,2) GROUND;
+(7,0) PIPE 2;
+(14,0) PIPE 30;
+(7,6)->(8,6) DIAMOND_BRICK;
+(7,7) PIPE 23;
+(13,4) DIAMOND_BRICK;
+(9,7) DIAMOND_BRICK;
+(11,11) DIAMOND_BRICK;
+(11,15) DIAMOND_BRICK;
+(11,19) QUESTION_MARK;
+(9,19)->(10,19) BRICK;
+(12,19)->(13,19) BRICK;
+(13,23) DIAMOND_BRICK;
+(9,26) DIAMOND_BRICK;
+(10,30)->(13,30) DIAMOND_BRICK;
+(5,6)->(6,6) DIAMOND_BRICK;
+(6,10) QUESTION_MARK;
+(20,29)->(25,29) BRICK;
+(25,33) QUESTION_MARK;
+(45,0)->(49,2) GROUND;
+(28,26) DIAMOND_BRICK;
+(33,22) DIAMOND_BRICK;
+(30,17) DIAMOND_BRICK;
+(33,13)->(40,13) BRICK;
+(3,25) CLOUD 1;
+(18,35) CLOUD 2;
+(28,20) CLOUD 1;
+];`;
+
+export {hard1, hard2, hard3, hardNames}
