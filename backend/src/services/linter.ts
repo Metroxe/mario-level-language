@@ -30,24 +30,37 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
 
 	const report: LintReport = cli.executeOnFiles([input.directory]);
 	//TODO: turn report into ILinterOutput
+    let output: ILinterOutput = {files: []};
 
-    console.log(report.results);
-
-    let output: ILinterOutput = {files: []}
-
+    let file: IFileLint = {
+        fileName: '',
+        filePath: '',
+        linesOfCode: 0,
+        directoryPath: [''],
+        lintingErrors: [{
+            lineNumber: 0,
+        	errors: ['']
+        }]
+    };
 
     for(let i=0; i<report.results.length;i++){
-        let file: IFileLint;
+        //let file: IFileLint;
         file.fileName = report.results[i].filePath.split("/").pop();
         file.filePath = report.results[i].filePath;
         file.linesOfCode = 10000 // missing info?
 
-        let directoryPath: string[];
+        let directoryPath = [''];
         directoryPath[0] = report.results[i].filePath.split("/")[1];
         directoryPath[1] = report.results[i].filePath.substring(report.results[i].filePath.indexOf('/'), report.results[i].filePath.lastIndexOf('/'));
         directoryPath[2] = file.fileName;
         file.directoryPath = directoryPath;
-	    file.lintingErrors.push({lineNumber: report.results[i].messages[0].line, errors:[report.results[i].messages[0].message]});
+
+        /*
+        for (let j=0; j<report.results[i].messages.length; j++){
+            file.lintingErrors[j].lineNumber = report.results[i].messages[j].line;
+            file.lintingErrors[j].errors[0] = report.results[i].messages[j].message;
+        }*/
+
         output.files.push();
     }
 
