@@ -3,3 +3,4 @@ node_modules
 dist
 test.png
 *.iml
+backend/src/services/data

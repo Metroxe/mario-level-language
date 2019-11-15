@@ -1,0 +1,17 @@
+const end =
+`VAR END [
+(0,0)->(29,2) GROUND;
+(3,3) DIAMOND_BRICK;
+(4,3)->(4,4) DIAMOND_BRICK;
+(5,3)->(5,5) DIAMOND_BRICK;
+(6,3)->(6,6) DIAMOND_BRICK;
+(7,3)->(7,7) DIAMOND_BRICK;
+(8,3)->(8,8) DIAMOND_BRICK;
+(9,3)->(9,9) DIAMOND_BRICK;
+(10,3)->(10,10) DIAMOND_BRICK;
+(11,3)->(11,11) DIAMOND_BRICK;
+(12,3)->(12,11) DIAMOND_BRICK;
+(24,3) FLAG;
+];`;
+
+export default end;
