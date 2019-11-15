@@ -5,7 +5,6 @@
  * https://eslint.org/docs/developer-guide/nodejs-api
  */
 import exampleLinterOut from "./exampleLinterOutput"; // use this of make one yourself *NOT TESTED*
-import directory from "../routes/makeGame.ts"
 
 interface ILinterInput {
 	directory: string
