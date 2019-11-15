@@ -1,10 +1,7 @@
-/**
- * Given the directory of a javascript project, run a lint on the entire project and return the
- * a list of files with their specific linting errors/warnings. You can ignore not js files.
- * You will also need to export the directory structure.
- * https://eslint.org/docs/developer-guide/nodejs-api
- */
-import exampleLinterOut from "./exampleLinterOutput"; // use this of make one yourself *NOT TESTED*
+import {promisify} from "util";
+import {CLIEngine, Linter} from "eslint";
+import exampleLinterOut from "./exampleLinterOutput";
+import LintReport = CLIEngine.LintReport;
 
 interface ILinterInput {
 	directory: string
@@ -27,43 +24,15 @@ export interface ILinterOutput {
 }
 
 async function linter(input: ILinterInput): Promise<ILinterOutput> {
-	return exampleLinterOut; // replace the var with the new json array
+	const cli = new CLIEngine({
+		useEslintrc: false,
+	});
+
+	const report: LintReport = cli.executeOnFiles([input.directory]);
+	//TODO: turn report into ILinterOutput
+
+	return exampleLinterOut;
 }
 
 export default linter;
 
-const exec = require('child_process').exec;
-// need to check directory path
-var yourscript = exec('sh eslint.sh ${directory}',
-        (error, stdout, stderr) => {
-            console.log(stdout); //json array output
-            console.log(stderr);
-            if (error !== null) {
-                console.log(`exec error: ${error}`);
-            }
-
-            // parsing
-            for (var i = 0; i<stdout.length; i++){
-                var obj = stdout[i];
-                console.log(obj);
-                var fileNanme;
-                var filePath;
-                var linesOfCode;
-                var directoryPath;
-                var lintingErrors;
-                var lineNumber;
-                var errors
-
-                var lintResult = {
-                    fileName: obj.filePath.split("/").pop(),
-                    filePath: obj.filePath,
-                    //linesOfCode: stdout.lines,
-                    //directoryPath: string[]
-                    lintingErrors: Array<{
-                        lineNumber: obj.message[0].line,
-                        errors: obj.message[0].message
-                    }>
-                };
-            }
-
-        });
