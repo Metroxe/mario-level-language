@@ -126,7 +126,6 @@ const App: React.FC = () => {
 
 	function getRepoURL(e: React.FormEvent<HTMLInputElement>) {
 		updateRepoURL(e.currentTarget.value);
-		console.log(e.currentTarget.value);
 	}
 
 	function toggle_for_tabs(tab:string) {
