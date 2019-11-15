@@ -3,6 +3,7 @@ import generateImage from "mario-level-generator";
 import compile from "compiler";
 
 app.post("/compile", async (req, res) => {
+	console.log("get ",req.body.input);
 	if (!req.body.input) {
 		res.sendStatus(401);
 		return;
