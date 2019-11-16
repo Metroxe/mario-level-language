@@ -56,9 +56,8 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
         file.directoryPath = directoryPath;
 
         for (let j=0; j<report.results[i].messages.length; j++){
-		file.lintingErrors[j].lineNumber = report.results[i].messages[j].line;
-		for (let k=0; k<report.results[i].messages[j].message.length; k++)
-                	file.lintingErrors[j].errors[k] = report.results[i].messages[j].message[k];
+            file.lintingErrors[j].lineNumber = report.results[i].messages[j].line;
+            file.lintingErrors[j].errors[0] = report.results[i].messages[j].message;
         }
 
         output.files.push();
