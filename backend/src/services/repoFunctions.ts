@@ -7,7 +7,6 @@ import JSZip from "jszip";
 const GET_REPO = 'https://api.github.com/repos/';
 const regex = /(http(s)?:(\/\/))?(www\.)?github.com(\/.+\/.+)/;
 const hostRegex = /(http(s)?:(\/\/))?(www\.)?github.com\//;
-const gitRegex = /.*(.git)/;
 const jsRegex = /(\w*)\.js$/;
 const regexList = [/.*(eslint(.+).js).*/, /.*(test.js)/];
 
@@ -122,7 +121,11 @@ async function createDirectory(path: string): Promise<void> {
 
 function generatePathAndRequest(url: string): string {
 	const cleanUrl = url.replace(hostRegex, "");
-	return generateRequest(cleanUrl.replace(gitRegex, ""));
+	if (cleanUrl.endsWith(".git")) {
+		return generateRequest(cleanUrl.substring(0, cleanUrl.length - 4));
+	} else {
+		return generateRequest(cleanUrl);
+	}
 }
 
 function generateRequest(path: string): string {
