@@ -3,6 +3,7 @@ import {CLIEngine, Linter} from "eslint";
 import exampleLinterOut from "./exampleLinterOutput";
 import LintReport = CLIEngine.LintReport;
 
+
 interface ILinterInput {
 	directory: string
 }
@@ -30,45 +31,49 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
         rules: {
             semi: 2,
             quotes: [2, "double"],
-	    curly: "error"
+	        curly: "error"
         }
         });
 
 	const report: LintReport = cli.executeOnFiles([input.directory]);
-	//TODO: turn report into ILinterOutput
+
     let output: ILinterOutput = {files: []};
-    let file: IFileLint = {
-        fileName: '',
-        filePath: '',
-        linesOfCode: 0,
-        directoryPath: [''],
-        lintingErrors: [{
-            lineNumber: 0,
-        	errors: ['']
-        }]
-    };
 
     for(let i=0; i<report.results.length;i++){
-        //let file: IFileLint;
-        file.fileName = report.results[i].filePath.split("/").pop();
-        file.filePath = report.results[i].filePath;
-        file.linesOfCode = 10000 // missing info?
+        let file: IFileLint = {
+            fileName: '',
+            filePath: '',
+            linesOfCode: 0,
+            directoryPath: ["projectName", "directoryPath", "fileName"],
+            lintingErrors: [{
+                "lineNumber": 0,
+            	"errors": ['']
+            },]
+        };
 
-        let directoryPath = [''];
-        directoryPath[0] = input.directory;
-        directoryPath[1] = report.results[i].filePath.substring(report.results[i].filePath.indexOf('/'), report.results[i].filePath.lastIndexOf('/'));
-        directoryPath[2] = file.fileName;
-        file.directoryPath = directoryPath;
+        file.fileName = report.results[i].filePath.split("/").pop();
+        file.filePath = report.results[i].filePath.substring(31);
+        file.linesOfCode = 10000
+
+        file.directoryPath[0] = file.filePath.substring(0,file.filePath.indexOf('/'));
+        file.directoryPath[2] = file.fileName;
+        file.directoryPath[1] = file.filePath.replace(file.directoryPath[0],'');
+        file.directoryPath[1] = file.directoryPath[1].replace(file.directoryPath[2],'');
+        file.directoryPath[1] = file.directoryPath[1].substring(1,file.directoryPath[1].length-1);
+        if(file.directoryPath[1].length == 1){
+            file.directoryPath[1] = '';
+        }
 
         for (let j=0; j<report.results[i].messages.length; j++){
+            file.lintingErrors[j] = {lineNumber: 0, errors: ['']};
             file.lintingErrors[j].lineNumber = report.results[i].messages[j].line;
             file.lintingErrors[j].errors[0] = report.results[i].messages[j].message;
         }
 
-        output.files.push();
+        //console.log("This is a file object: "+JSON.stringify(file));
+        output.files.push(file);
     }
 	return output;
-
 }
 
 export default linter;
