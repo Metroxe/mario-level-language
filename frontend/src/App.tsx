@@ -43,7 +43,11 @@ const App: React.FC = () => {
 	const upload: RefObject<HTMLInputElement> = useRef(null);
 	const [repoURL, updateRepoURL] = useState('');
 	const [activeTab, updateActiveTab] = useState('1');
-
+	const repoURLExamples: {
+		Example1: string;
+		Example2: string;
+		Example3: string;
+	} = {Example1: "https://github.com/Metroxe/mario-level-language", Example2:"https://github.com/pubnub/javascript", Example3:"3"};
 
 	async function getImage() {
 		updateLoading(true);
@@ -143,6 +147,10 @@ const App: React.FC = () => {
 		updateLoading(false);
 	}
 
+	function useMockForRepoURL(repoURL: string) {
+		return () => {updateRepoURL(repoURL)}
+	}
+
 	return (
 		<React.Fragment>
 		<Container>
@@ -170,21 +178,27 @@ const App: React.FC = () => {
 					<Button className="ml-1" color="primary" onClick={toggle}>Instructions</Button>
 				</p>
 			</Jumbotron>
-			<Nav tabs>
-				<NavItem>
+			<Nav tabs style={{justifyContent:"space-between"}}>
+				<NavItem style={{width:"50%", paddingRight:1}}>
 					<NavLink
 						className={classnames({active: activeTab === '1'})}
 						onClick={() => {toggle_for_tabs('1');}}
+						style={{border:0, padding: 0}}
 					>
-						DSL
+						<Button color="primary" style={{border:0, width: "100%"}}>
+							DSL
+						</Button>
 					</NavLink>
 				</NavItem>
-				<NavItem>
+				<NavItem style={{width: "50%", paddingLeft:1}}>
 					<NavLink
 						className={classnames({active: activeTab === '2'})}
 						onClick={() => {toggle_for_tabs('2');}}
+						style={{border:0, padding: 0}}
 					>
-						VPL
+						<Button color="primary" style={{border:0, width: "100%"}}>
+							VPL
+						</Button>
 					</NavLink>
 				</NavItem>
 			</Nav>
@@ -255,15 +269,25 @@ const App: React.FC = () => {
 					}
 				</TabPane>
 				<TabPane tabId="2">
-					<Form>
-						<FormGroup>
-							<Label for="repoURL">repoURL</Label>
-							<Input type="text" name="repoURL" id="repoURL" placeholder="plese enter the repoURL here" onChange={getRepoURL}></Input>
-							<Button className="mr-1" onClick={sendRepoURL} color="primary">
-								Submit
+					<Card className="mt-4">
+						<CardBody>
+							<div>
+								<ButtonGroup className="mb-3">
+									<Button onClick={useMockForRepoURL(repoURLExamples.Example1.trim())}>Example1</Button>
+									<Button onClick={useMockForRepoURL(repoURLExamples.Example2.trim())}>Example2</Button>
+									<Button onClick={useMockForRepoURL(repoURLExamples.Example3.trim())}>Example3</Button>
+								</ButtonGroup>
+							</div>
+							<Form>
+								<FormGroup>
+									<Input type="text" name="repoURL" id="repoURL" placeholder="plese enter the repoURL here" onChange={getRepoURL} value={repoURL}></Input>
+								</FormGroup>
+							</Form>
+							<Button className="mr-1" onClick={sendRepoURL} disabled={loading} color="primary" style={{marginTop:2}}>
+										Submit
 							</Button>
-						</FormGroup>
-					</Form>
+						</CardBody>
+					</Card>
 				</TabPane>
 			</TabContent>
 		</Container>
