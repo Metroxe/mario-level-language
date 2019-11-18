@@ -30,7 +30,7 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
         rules: {
             semi: 2,
             quotes: [2, "double"],
-	        curly: "error"
+	    curly: "error"
         }
         });
 
@@ -55,7 +55,7 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
         file.linesOfCode = 10000 // missing info?
 
         let directoryPath = [''];
-        directoryPath[0] = report.results[i].filePath.split("/")[1];
+        directoryPath[0] = input.directory;
         directoryPath[1] = report.results[i].filePath.substring(report.results[i].filePath.indexOf('/'), report.results[i].filePath.lastIndexOf('/'));
         directoryPath[2] = file.fileName;
         file.directoryPath = directoryPath;
