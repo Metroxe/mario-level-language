@@ -25,8 +25,14 @@ export interface ILinterOutput {
 
 async function linter(input: ILinterInput): Promise<ILinterOutput> {
 	const cli = new CLIEngine({
-		useEslintrc: false,
-	});
+        envs: ["browser", "mocha"],
+        useEslintrc: false,
+        rules: {
+            semi: 2,
+            quotes: [2, "double"],
+	        curly: "error"
+        }
+        });
 
 	const report: LintReport = cli.executeOnFiles([input.directory]);
 	//TODO: turn report into ILinterOutput
