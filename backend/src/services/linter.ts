@@ -35,8 +35,24 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
         }
         });
 
-	const report: LintReport = cli.executeOnFiles([input.directory]);
-
+    const report: LintReport = cli.executeOnFiles([input.directory]);
+	
+    var recursive = require("recursive-readdir");
+    let numLineOfCode = new Array();
+    recursive(input.directory, function (err:any, files:any) {
+    // `files` is an array of file paths
+    for (let k=0; k<files.length;k++){
+        var fs = require('fs');
+        var filePath = files[k];
+        var fileBuffer =  fs.readFileSync(filePath);
+        var to_string = fileBuffer.toString();
+        var split_lines = to_string.split("\n");
+        // console.log(split_lines.length-1);
+        numLineOfCode.push(split_lines.length-1);
+    }
+    });
+    console.log(numLineOfCode);	
+	
     let output: ILinterOutput = {files: []};
 
     for(let i=0; i<report.results.length;i++){
@@ -53,7 +69,7 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
 
         file.fileName = report.results[i].filePath.split("/").pop();
         file.filePath = report.results[i].filePath.substring(31);
-        file.linesOfCode = 10000
+        file.linesOfCode = numLineOfCode[i];
 
         file.directoryPath[0] = file.filePath.substring(0,file.filePath.indexOf('/'));
         file.directoryPath[2] = file.fileName;
