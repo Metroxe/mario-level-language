@@ -1,11 +1,9 @@
-/**
- * Given the directory of a javascript project, run a lint on the entire project and return the
- * a list of files with their specific linting errors/warnings. You can ignore not js files.
- * You will also need to export the directory structure.
- * https://eslint.org/docs/developer-guide/nodejs-api
- */
-import exampleLinterOut from "./exampleLinterOutput"; // use this of make one yourself *NOT TESTED*
-
+import {promisify} from "util";
+import {CLIEngine, Linter} from "eslint";
+import exampleLinterOut from "./exampleLinterOutput";
+import LintReport = CLIEngine.LintReport;
+import fs from 'fs-extra';
+import p from 'path';
 
 interface ILinterInput {
 	directory: string
@@ -28,7 +26,75 @@ export interface ILinterOutput {
 }
 
 async function linter(input: ILinterInput): Promise<ILinterOutput> {
-	return exampleLinterOut; // this is an example I made just for testing, remove when done.
+	const cli = new CLIEngine({
+        envs: ["browser", "mocha"],
+        useEslintrc: false,
+        rules: {
+            semi: 2,
+            quotes: [2, "double"],
+	        curly: "error"
+        }
+        });
+
+    const report: LintReport = cli.executeOnFiles([input.directory]);
+
+    // Map of path to number
+    let lines = new Map<string, number>();
+	
+    let output: ILinterOutput = {files: []};
+
+    for(let result of report.results){
+        let file: IFileLint = {
+            fileName: '',
+            filePath: '',
+            linesOfCode: 0,
+            directoryPath: [],
+            lintingErrors: [{
+                lineNumber: 0,
+            	errors: ['']
+            },]
+        };
+        file.directoryPath = result.filePath.replace(`${__dirname}/`, "").split('/');
+        file.fileName = file.directoryPath.slice(-1).pop();
+        file.directoryPath[file.directoryPath.length-1] = p.basename(file.fileName, '.js');
+        file.filePath = result.filePath;
+        file.linesOfCode = await getNumberOfLines(file.filePath, lines);
+
+        for (let j=0; j<result.messages.length; j++){
+            file.lintingErrors[j] = {lineNumber: 0, errors: ['']};
+            file.lintingErrors[j].lineNumber = result.messages[j].line;
+            file.lintingErrors[j].errors[0] = result.messages[j].message;
+        }
+
+        // console.log("This is a file object: "+JSON.stringify(file));
+        output.files.push(file);
+    }
+	return output;
+}
+
+async function getNumberOfLines (path: string, lines: Map<string, number>): Promise<number>{
+    if (lines.has(path)) {
+        return lines.get(path);
+    }
+
+    return new Promise((resolve, reject) => {
+        let lineCount = 0;
+
+        fs.createReadStream(path)
+            .on('data', buffer => {
+                let idx = -1;
+                lineCount--;
+                do {
+                    idx = buffer.indexOf(10, idx+1);
+                    lineCount++;
+                } while (idx !== -1);
+            })
+            .on('end', () => {
+                lines.set(path, lineCount);
+                resolve(lineCount);
+            })
+            .on('error', reject);
+    });
 }
 
 export default linter;
