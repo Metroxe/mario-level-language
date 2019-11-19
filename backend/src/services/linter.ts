@@ -72,25 +72,17 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
             fileName: '',
             filePath: '',
             linesOfCode: 0,
-            directoryPath: ["projectName", "directoryPath", "fileName"],
+            directoryPath: [''],
             lintingErrors: [{
                 "lineNumber": 0,
             	"errors": ['']
             },]
         };
 
-        file.fileName = report.results[i].filePath.split("/").pop();
         file.filePath = report.results[i].filePath.substring(31);
         file.linesOfCode = numLineOfCode[i];
-
-        file.directoryPath[0] = file.filePath.substring(0,file.filePath.indexOf('/'));
-        file.directoryPath[2] = file.fileName;
-        file.directoryPath[1] = file.filePath.replace(file.directoryPath[0],'');
-        file.directoryPath[1] = file.directoryPath[1].replace(file.directoryPath[2],'');
-        file.directoryPath[1] = file.directoryPath[1].substring(1,file.directoryPath[1].length-1);
-        if(file.directoryPath[1].length == 1){
-            file.directoryPath[1] = '';
-        }
+        file.directoryPath = file.filePath.split('/');
+        file.fileName = file.directoryPath[file.directoryPath.length-1];
 
         for (let j=0; j<report.results[i].messages.length; j++){
             file.lintingErrors[j] = {lineNumber: 0, errors: ['']};
