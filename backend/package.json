@@ -7,7 +7,7 @@
     "start": "NODE_ENV=production node dist/index.js",
     "build": "rm -rf dist/ && tsc",
     "build-docker": "docker build -t mario-level-language/backend --file ../Dockerfile_backend ../",
-    "run-docker": "docker run --cpus=1 --memory=3gb --memory-swap=3gb -p 8080:8080 mario-level-language/backend",
+    "run-docker": "docker run --cpus=1 --memory=512mb --memory-swap=512mb -p 8080:8080 mario-level-language/backend",
     "kill-docker": "docker stop $(docker ps -aq) || true && docker rm $(docker ps -aq) || true",
     "clean-docker": "npm run kill-docker && docker system df && docker rmi $(docker images -q) || true",
     "restart-docker": "npm run build-docker && npm run kill-docker && npm run run-docker"

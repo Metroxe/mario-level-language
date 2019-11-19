@@ -46,7 +46,7 @@ const App: React.FC = () => {
 		Example1: string;
 		Example2: string;
 		Example3: string;
-	} = {Example1: "https://github.com/clarkgrubb/sample-javascript-project", Example2:"https://github.com/mdn/js-examples", Example3:"https://github.com/jgthms/javascript-in-14-minutes"};
+	} = {Example1: "https://github.com/clarkgrubb/sample-javascript-project", Example2:"https://github.com/mdn/js-examples", Example3:"https://github.com/Metroxe/react-border-wrapper"};
 
 	async function getImage() {
 		updateLoading(true);
@@ -263,19 +263,21 @@ const App: React.FC = () => {
 					<Card style={{borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
 						<CardBody>
 							<CardText>
+								<b>Caution: Experimental</b>
+								<br/>
 								The following is a tool for analyzing linting issues in javascript project. This will compile all of the directories into worlds and javascript files
 								into levels. A levels difficulty will correspond to the linting errors and where they are located. For example if you have a lot of
 								linting error at the end of a file, but the beginning is clean, then the level will be easy. Simply put a javascript github repo in the input
 								below and press 'Submit' to try it out.
 							</CardText>
 							<ButtonGroup className="mb-3">
-								<Button onClick={useMockForRepoURL(repoURLExamples.Example1.trim())}>Example1</Button>
-								<Button onClick={useMockForRepoURL(repoURLExamples.Example2.trim())}>Example2</Button>
-								<Button onClick={useMockForRepoURL(repoURLExamples.Example3.trim())}>Example3</Button>
+								<Button onClick={useMockForRepoURL(repoURLExamples.Example1.trim())}>Example 1</Button>
+								<Button onClick={useMockForRepoURL(repoURLExamples.Example2.trim())}>Example 2</Button>
+								<Button onClick={useMockForRepoURL(repoURLExamples.Example3.trim())}>A Real Project</Button>
 							</ButtonGroup>
 							<Form>
 								<FormGroup>
-									<Input type="text" name="repoURL" id="repoURL" placeholder="plese enter the repoURL here" onChange={handleRepoURL} value={repoURL}></Input>
+									<Input type="text" name="repoURL" id="repoURL" placeholder="please enter the repoURL here" onChange={handleRepoURL} value={repoURL}></Input>
 								</FormGroup>
 							</Form>
 							<Button className="mr-1" onClick={getVPLResult} disabled={loading} color="primary" style={{marginTop:2}}>
