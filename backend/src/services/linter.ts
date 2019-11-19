@@ -54,7 +54,6 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
             	errors: ['']
             },]
         };
-
         file.directoryPath = result.filePath.replace(`${__dirname}/`, "").split('/');
         file.fileName = file.directoryPath.slice(-1).pop();
         file.directoryPath[file.directoryPath.length-1] = p.basename(file.fileName, '.js');
