@@ -2,7 +2,8 @@ import {promisify} from "util";
 import {CLIEngine, Linter} from "eslint";
 import exampleLinterOut from "./exampleLinterOutput";
 import LintReport = CLIEngine.LintReport;
-
+import fs from 'fs-extra';
+import p from 'path';
 
 interface ILinterInput {
 	directory: string
@@ -36,72 +37,65 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
         });
 
     const report: LintReport = cli.executeOnFiles([input.directory]);
-	
-    var files = new Array();
-    const fs1 = require('fs');
-    async function getFiles (dir:any, files_:any){
-        files_ = files_ || [];
-        var files = fs1.readdirSync(dir);
-        for (var i in files){
-            var name = dir + '/' + files[i];
-            if (fs1.statSync(name).isDirectory()){
-                getFiles(name, files_);
-            } else {
-                files_.push(name);
-            }
-        }
-        return files_;
-    }
-    
-    getFiles(input.directory,files);
-    let numLineOfCode = new Array();
-    // `files` is an array of file paths
-    for (let k=0; k<files.length;k++){
-        var fs = require('fs');
-        var filePath = files[k];
-        var fileBuffer =  fs.readFileSync(filePath);
-        var to_string = fileBuffer.toString();
-        var split_lines = to_string.split("\n");
-        numLineOfCode.push(split_lines.length-1);
-    }
+
+    // Map of path to number
+    let lines = new Map<string, number>();
 	
     let output: ILinterOutput = {files: []};
 
-    for(let i=0; i<report.results.length;i++){
+    for(let result of report.results){
         let file: IFileLint = {
             fileName: '',
             filePath: '',
             linesOfCode: 0,
-            directoryPath: ["projectName", "directoryPath", "fileName"],
+            directoryPath: [],
             lintingErrors: [{
-                "lineNumber": 0,
-            	"errors": ['']
+                lineNumber: 0,
+            	errors: ['']
             },]
         };
 
-        file.fileName = report.results[i].filePath.split("/").pop();
-        file.filePath = report.results[i].filePath.substring(31);
-        file.linesOfCode = numLineOfCode[i];
+        file.directoryPath = result.filePath.replace(`${__dirname}/`, "").split('/');
+        file.fileName = file.directoryPath.slice(-1).pop();
+        file.directoryPath[file.directoryPath.length-1] = p.basename(file.fileName, '.js');
+        file.filePath = result.filePath;
+        file.linesOfCode = await getNumberOfLines(file.filePath, lines);
 
-        file.directoryPath[0] = file.filePath.substring(0,file.filePath.indexOf('/'));
-        file.directoryPath[2] = file.fileName;
-        file.directoryPath[1] = file.filePath.replace(file.directoryPath[0],'');
-        file.directoryPath[1] = file.directoryPath[1].replace(file.directoryPath[2],'');
-        file.directoryPath[1] = file.directoryPath[1].substring(1,file.directoryPath[1].length-1);
-        if(file.directoryPath[1].length == 1){
-            file.directoryPath[1] = '';
-        }
-
-        for (let j=0; j<report.results[i].messages.length; j++){
+        for (let j=0; j<result.messages.length; j++){
             file.lintingErrors[j] = {lineNumber: 0, errors: ['']};
-            file.lintingErrors[j].lineNumber = report.results[i].messages[j].line;
-            file.lintingErrors[j].errors[0] = report.results[i].messages[j].message;
+            file.lintingErrors[j].lineNumber = result.messages[j].line;
+            file.lintingErrors[j].errors[0] = result.messages[j].message;
         }
 
-        //console.log("This is a file object: "+JSON.stringify(file));
+        // console.log("This is a file object: "+JSON.stringify(file));
         output.files.push(file);
     }
 	return output;
+}
+
+async function getNumberOfLines (path: string, lines: Map<string, number>): Promise<number>{
+    if (lines.has(path)) {
+        return lines.get(path);
+    }
+
+    return new Promise((resolve, reject) => {
+        let lineCount = 0;
+
+        fs.createReadStream(path)
+            .on('data', buffer => {
+                let idx = -1;
+                lineCount--;
+                do {
+                    idx = buffer.indexOf(10, idx+1);
+                    lineCount++;
+                } while (idx !== -1);
+            })
+            .on('end', () => {
+                lines.set(path, lineCount);
+                resolve(lineCount);
+            })
+            .on('error', reject);
+    });
 }
 
 export default linter;
