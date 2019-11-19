@@ -6,16 +6,15 @@ import {
 	ButtonGroup,
 	Card,
 	CardBody,
-	CardImg,
 	Container,
 	Input,
 	InputGroup,
 	InputGroupAddon,
 	Jumbotron,
 	Modal, ModalBody, ModalHeader,
-	Spinner, UncontrolledTooltip,
+	Spinner, 
 	TabContent, TabPane, Nav, NavItem, NavLink,
-	Form, FormGroup, Label
+	Form, FormGroup
 } from 'reactstrap';
 import "./App.css";
 import axios from "axios";
@@ -23,7 +22,6 @@ import {levels} from "shared";
 import Instructions from "./instructions";
 import FileDownload from 'js-file-download';
 import TextEditor from "./TextEditor";
-import {on} from "cluster";
 import Grid from "./Grid";
 import classnames from 'classnames';
 
@@ -42,12 +40,13 @@ const App: React.FC = () => {
 	const [fileOpen, updateFileOpen] = useState(false);
 	const upload: RefObject<HTMLInputElement> = useRef(null);
 	const [repoURL, updateRepoURL] = useState('');
+	const [VPLResult, updateVPLResult] = useState();
 	const [activeTab, updateActiveTab] = useState('1');
 	const repoURLExamples: {
 		Example1: string;
 		Example2: string;
 		Example3: string;
-	} = {Example1: "https://github.com/Metroxe/mario-level-language", Example2:"https://github.com/pubnub/javascript", Example3:"3"};
+	} = {Example1: "https://github.com/SitePen/TypeScript-examples", Example2:"https://github.com/fullcalendar/typescript-example", Example3:"https://github.com/microsoft/TypeScriptSamples"};
 
 	async function getImage() {
 		updateLoading(true);
@@ -128,7 +127,7 @@ const App: React.FC = () => {
 		}
 	}
 
-	function getRepoURL(e: React.FormEvent<HTMLInputElement>) {
+	function handleRepoURL(e: React.FormEvent<HTMLInputElement>) {
 		updateRepoURL(e.currentTarget.value);
 	}
 
@@ -136,10 +135,11 @@ const App: React.FC = () => {
 		if (activeTab !== tab) updateActiveTab(tab);
 	}
 
-	async function sendRepoURL() {
+	async function getVPLResult() {
 		updateLoading(true);
 		try {
 			const {data} = await axios.post(`${'production' === process.env.NODE_ENV ? "" : "http://localhost:8080"}/makeWorld`, {repoURL});
+			FileDownload(data, 'mario_level_language_V.zip');
 		} catch (err) {
 			alert("There was an error, check the console");
 			console.log(err);
@@ -280,12 +280,16 @@ const App: React.FC = () => {
 							</div>
 							<Form>
 								<FormGroup>
-									<Input type="text" name="repoURL" id="repoURL" placeholder="plese enter the repoURL here" onChange={getRepoURL} value={repoURL}></Input>
+									<Input type="text" name="repoURL" id="repoURL" placeholder="plese enter the repoURL here" onChange={handleRepoURL} value={repoURL}></Input>
 								</FormGroup>
 							</Form>
-							<Button className="mr-1" onClick={sendRepoURL} disabled={loading} color="primary" style={{marginTop:2}}>
+							<Button className="mr-1" onClick={getVPLResult} disabled={loading} color="primary" style={{marginTop:2}}>
+							{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}
 										Submit
 							</Button>
+							{/* {
+								VPLResult
+							} */}
 						</CardBody>
 					</Card>
 				</TabPane>
