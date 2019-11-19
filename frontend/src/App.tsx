@@ -12,7 +12,7 @@ import {
 	InputGroupAddon,
 	Jumbotron,
 	Modal, ModalBody, ModalHeader,
-	Spinner, 
+	Spinner,
 	TabContent, TabPane, Nav, NavItem, NavLink,
 	Form, FormGroup
 } from 'reactstrap';
@@ -138,8 +138,8 @@ const App: React.FC = () => {
 	async function getVPLResult() {
 		updateLoading(true);
 		try {
-			const {data} = await axios.post(`${'production' === process.env.NODE_ENV ? "" : "http://localhost:8080"}/makeWorld`, {repoURL});
-			FileDownload(data, 'mario_level_language_V.zip');
+			const {data} = await axios.post(`${'production' === process.env.NODE_ENV ? "" : "http://localhost:8080"}/makeWorld`, {repoURL}, {responseType: 'arraybuffer'});
+			FileDownload(data, 'mario_level_language_game.zip');
 		} catch (err) {
 			alert("There was an error, check the console");
 			console.log(err);
@@ -178,33 +178,29 @@ const App: React.FC = () => {
 					<Button className="ml-1" color="primary" onClick={toggle}>Instructions</Button>
 				</p>
 			</Jumbotron>
-			<Nav tabs style={{justifyContent:"space-between"}}>
-				<NavItem style={{width:"50%", paddingRight:1}}>
+			<Nav tabs>
+				<NavItem>
 					<NavLink
 						className={classnames({active: activeTab === '1'})}
 						onClick={() => {toggle_for_tabs('1');}}
-						style={{border:0, padding: 0}}
+						style={{cursor: "pointer"}}
 					>
-						<Button color="primary" style={{border:0, width: "100%"}}>
-							DSL
-						</Button>
+						DSL
 					</NavLink>
 				</NavItem>
-				<NavItem style={{width: "50%", paddingLeft:1}}>
+				<NavItem>
 					<NavLink
 						className={classnames({active: activeTab === '2'})}
 						onClick={() => {toggle_for_tabs('2');}}
-						style={{border:0, padding: 0}}
+						style={{cursor: "pointer"}}
 					>
-						<Button color="primary" style={{border:0, width: "100%"}}>
-							VPL
-						</Button>
+						Make Game
 					</NavLink>
 				</NavItem>
 			</Nav>
 			<TabContent activeTab={activeTab}>
 				<TabPane tabId="1">
-					<Card className="mt-4">
+					<Card style={{borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
 						<CardBody>
 							<div>
 								<ButtonGroup className="mb-3">
@@ -253,11 +249,6 @@ const App: React.FC = () => {
 								</Button>
 							}
 							{grid && <p>x: {cord.x}, y: {cord.y}</p>}
-
-							{/*<Button color="primary" disabled={loading}>*/}
-							{/*	{loading && <span className="mr-4"><Spinner size="sm" color="secondary"/></span>}*/}
-							{/*	Make Video*/}
-							{/*</Button>*/}
 						</CardBody>
 					</Card>
 					{
@@ -269,7 +260,7 @@ const App: React.FC = () => {
 					}
 				</TabPane>
 				<TabPane tabId="2">
-					<Card className="mt-4">
+					<Card style={{borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
 						<CardBody>
 							<div>
 								<ButtonGroup className="mb-3">
