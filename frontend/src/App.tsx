@@ -46,7 +46,7 @@ const App: React.FC = () => {
 		Example1: string;
 		Example2: string;
 		Example3: string;
-	} = {Example1: "https://github.com/SitePen/TypeScript-examples", Example2:"https://github.com/fullcalendar/typescript-example", Example3:"https://github.com/microsoft/TypeScriptSamples"};
+	} = {Example1: "https://github.com/clarkgrubb/sample-javascript-project", Example2:"https://github.com/mdn/js-examples", Example3:"https://github.com/jgthms/javascript-in-14-minutes"};
 
 	async function getImage() {
 		updateLoading(true);
