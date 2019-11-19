@@ -14,7 +14,7 @@ import {
 	Modal, ModalBody, ModalHeader,
 	Spinner,
 	TabContent, TabPane, Nav, NavItem, NavLink,
-	Form, FormGroup
+	Form, FormGroup, CardText
 } from 'reactstrap';
 import "./App.css";
 import axios from "axios";
@@ -262,13 +262,17 @@ const App: React.FC = () => {
 				<TabPane tabId="2">
 					<Card style={{borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
 						<CardBody>
-							<div>
-								<ButtonGroup className="mb-3">
-									<Button onClick={useMockForRepoURL(repoURLExamples.Example1.trim())}>Example1</Button>
-									<Button onClick={useMockForRepoURL(repoURLExamples.Example2.trim())}>Example2</Button>
-									<Button onClick={useMockForRepoURL(repoURLExamples.Example3.trim())}>Example3</Button>
-								</ButtonGroup>
-							</div>
+							<CardText>
+								The following is a tool for analyzing linting issues in javascript project. This will compile all of the directories into worlds and javascript files
+								into levels. A levels difficulty will correspond to the linting errors and where they are located. For example if you have a lot of
+								linting error at the end of a file, but the beginning is clean, then the level will be easy. Simply put a javascript github repo in the input
+								below and press 'Submit' to try it out.
+							</CardText>
+							<ButtonGroup className="mb-3">
+								<Button onClick={useMockForRepoURL(repoURLExamples.Example1.trim())}>Example1</Button>
+								<Button onClick={useMockForRepoURL(repoURLExamples.Example2.trim())}>Example2</Button>
+								<Button onClick={useMockForRepoURL(repoURLExamples.Example3.trim())}>Example3</Button>
+							</ButtonGroup>
 							<Form>
 								<FormGroup>
 									<Input type="text" name="repoURL" id="repoURL" placeholder="plese enter the repoURL here" onChange={handleRepoURL} value={repoURL}></Input>
