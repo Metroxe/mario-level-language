@@ -1,6 +1,4 @@
-import {promisify} from "util";
 import {CLIEngine, Linter} from "eslint";
-import exampleLinterOut from "./exampleLinterOutput";
 import LintReport = CLIEngine.LintReport;
 import fs from 'fs-extra';
 import p from 'path';
@@ -33,8 +31,9 @@ async function linter(input: ILinterInput): Promise<ILinterOutput> {
             semi: 2,
             quotes: [2, "double"],
 	        curly: "error"
-        }
-        });
+        },
+        configFile: './.eslintrc.js'
+    });
 
     const report: LintReport = cli.executeOnFiles([input.directory]);
 
