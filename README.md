@@ -2,24 +2,23 @@
 Language for making Mario levels.
 
 ## Table of Contents
-1. [Goal](#Goal)
-<br/> 1.1 [Visualization](#Visualization)
-<br/> 1.2 [Analysis](#Analysis)
-2. [Implementation and Roles](#Implementation and Roles)
-<br/> 2.1 [Fetching a Repository](#1.Fetching a Repository)
-<br/> 2.2 [Static Analysis through ESLint](#2.Static Analysis through ESLint)
-<br/> 2.3 [Data to Visualization](#3.Data to Visualization)
-<br/> 2.4 [Recreative Front-End](#4.Recreative Front End)
-3. [User Testing](#User Testing)
-4. [Running the Project](#Running the Project)
-<br/> 4.1 [Required Tools](#Required Tools)
-<br/> 4.2 [First Method](#First Method)
-<br/> 4.3 [Second Method](#Second Method(Easier for testing specific FrontEnd or BackEnd implementations))
-5. [Testing the Project](#Testing the Project)
-<br/> 5.1 [Optional Tools](#Optional Tools)
-<br/> 5.2 [Testing Visualization With Postman (For Backend Only)](#Testing Visualization With Postman(For Backend Only))
-<br/> 5.3 [First Method](#Testing with other tools)
-
+1. [Goal](#goal)
+<br/> 1.1 Visualization
+<br/> 1.2 Analysis
+2. [Implementation and Roles](#implementation-and-roles)
+<br/> 2.1 Fetching a Repository
+<br/> 2.2 Static Analysis through ESLint
+<br/> 2.3 Data to Visualization
+<br/> 2.4 Recreative Front End
+3. [User Testing](#user-testing)
+4. [Running the Project](#running-the-project)
+<br/> 4.1 Required Tools
+<br/> 4.2 First Method
+<br/> 4.3 Second Method
+5. [Testing the Project](#testing-the-project)
+<br/> 5.1 Optional Tools
+<br/> 5.2 Testing Visualization With Postman (For Backend Only)
+<br/> 5.3 First Method
 
 ## Goal
 ### Visualization
@@ -33,19 +32,19 @@ for predefined rules(e.g. enforce semicolons, a line being to long), so we are u
 **Meta Analysis:** We use meta analysis with the project structure and sizes of the project.
 
 ## Implementation and Roles
-#### 1.Fetching a Repository
+#### 1. Fetching a Repository
 Developed By: Kwangsoo Yeo<br/>
 Based on a github repository, fetch the repository and grab all the relevant contents (all JavaScript Files excluding config files) and save them into the disk
 with files and directories structured the same way as the original project. This is used later for getting
 eslint results and generating levels. Delete all files once done with static checks of each file
 
-#### 2.Static Analysis through ESLint
+#### 2. Static Analysis through ESLint
 Developed By: Tongtong Zhai and Huanxin Zhang<br/>
 Run ESLint to all the JavaScript files in the repository to get the errors, file size and number of lines of code.
 For each file grab all the errors, the error type, number of line the error occurred and generate a output for basing the
 mario levels off.
 
-#### 3.Data to Visualization
+#### 3. Data to Visualization
 Developed By: Christopher Powroznik<br/>
 Based on the output generated in the previous step, create a mario level for each file. The level will be dynamically created
 given the size of the file(determines how large the map will be), and create obstacles given the errors from the the ESLint
@@ -54,7 +53,7 @@ in each map which reflects partially how bad the linting is done in a specific f
 After generating a map for each file, save the img with correct path to the directory and save it to the zip file.
 This language generator is done with our previous project, creating the mario dsl.
 
-#### 4.Recreative Front End
+#### 4. Recreative Front-End
 Developed By: Kevin Zhu<br/>
 Create a front end that would help a user test a repo based on the implementations above. A input filed for a github repo
 would call the server to generate images for each JavaScript file. The files are compressed into a zip file and
@@ -82,7 +81,7 @@ Visualization Specific Questions: (Based on the image generated)
 1. Initiate Docker.
 2. On the root directory run `npm run restart-docker`.
 
-### Second Method(Easier for testing specific FrontEnd or BackEnd implementations)
+### Second Method(Easier for testing specific Front-End or Back-End implementations)
 1. On the root direcotry run `sh install-dependencies.sh`. (Once every time new dependencies are added)
 2. To run the front-end.
 >1. Go to the frontend directory `cd frontend`
