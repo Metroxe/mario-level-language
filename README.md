@@ -1,10 +1,79 @@
 # mario-level-language
 Language for making Mario levels.
 
-## Running the project
+## Table of Contents
+1. [Goal](#goal)
+<br/> 1.1 Visualization
+<br/> 1.2 Analysis
+2. [Implementation and Roles](#implementation-and-roles)
+<br/> 2.1 Fetching a Repository
+<br/> 2.2 Static Analysis through ESLint
+<br/> 2.3 Data to Visualization
+<br/> 2.4 Recreative Front End
+3. [User Testing](#user-testing)
+4. [Running the Project](#running-the-project)
+<br/> 4.1 Required Tools
+<br/> 4.2 First Method
+<br/> 4.3 Second Method
+5. [Testing the Project](#testing-the-project)
+<br/> 5.1 Optional Tools
+<br/> 5.2 Testing Visualization With Postman (For Backend Only)
+<br/> 5.3 First Method
+
+## Goal
+### Visualization
+Our goal for this project was to create visual linting results using predefined linting rules and display it in a fun and meaningful way. We wanted to improve the monotunous task of reading endless console linting issues and instead give a general approach to identifiying the lint of a project. Instead of reading warning and errors line by line, we wanted to create a way to easily specifiy where in a project there are linting issues and to see if certain files/directories were worse than others. Therefore we decided to generate mario levels according to the linting errors output. We fetch a JavaScript project from github and output a mario level using our project from DSL.
+
+### Analysis
+**Static Analysis:** We determine the linting errors in repository following. Linting is run through node and checks
+for predefined rules(e.g. enforce semicolons, a line being to long), so we are using static checks for each file in a project. 
+<br/>
+**Meta Analysis:** We use meta analysis with the project structure and sizes of the project.
+
+Both of these methods are used as variables in determining the structure of the generated Mario Game and it's levels.
+
+## Implementation and Roles
+#### 1. Fetching a Repository
+Developed By: Kwangsoo Yeo<br/>
+Based on a github repository, fetch the repository and grab all the relevant contents (all JavaScript Files excluding config files) and save them into the disk
+with files and directories structured the same way as the original project. This is used later for getting
+eslint results and generating levels. Delete all files once done with static checks of each file
+
+#### 2. Analysis of the Code
+Developed By: Tongtong Zhai and Huanxin Zhang<br/>
+Created and ran linting solution to all the JavaScript files in the repository to get the errors, file size and number of lines of code. For each file grab all the errors, the error type, number of line the error occurred and generate a output for basing the mario levels off. Organized all of the data into a readable format (JSON) to be used in the Visualization.
+
+#### 3. Data to Visualization
+Developed By: Christopher Powroznik<br/>
+Based on the output generated in the previous step, create a mario level for each file. The level will be dynamically created
+given the size of the file(determines how large the map will be), and create obstacles given the errors from the the ESLint
+results. The ESLint results can be classified and easy, medium hard level.  This determines the difficulty the obstacles are place in each map which reflects partially how bad the linting is done in a specific file. 
+After generating a map for each file, save the img with correct path to the directory and save it to the zip file.
+This language generator is done with our previous project, creating the mario dsl.
+
+#### 4. Recreative Front-End
+Developed By: Kevin Zhu<br/>
+Create a front end that would help a user test a repo based on the implementations above. A input filed for a github repo
+would call the server to generate images for each JavaScript file. The files are compressed into a zip file and
+sent back to the user so that it can download the images and check the linting results as a mario level.
+
+## User Testing
+We specifically ask users the answer some of the questions from this [form](https://docs.google.com/forms/d/e/1FAIpQLSd15hrHZnZCIOzTQCN85aCNxdyv25kwa7U-oivkR48-tw60kw/viewform). 
+<br/>
+General Questions:
+- Have you played mario brothers?
+- Do you know JavaScript?
+- Do you know ESLint?
+
+Visualization Specific Questions: (Based on the image generated)
+- Do you think a specific file has linting errors?
+- How large do you think this file is?
+- Do you think the image helps you see where the linting error is located?
+
+## Running the Project
 ### Required Tools
 1. [Docker](https://www.docker.com/products/docker-desktop)
-2. Node(v10) and NPM(Node Package Manager)
+2. Node(v10) and NPM(Node Package Manager)¡
 
 ### First Method
 1. Initiate Docker.
@@ -21,12 +90,12 @@ Language for making Mario levels.
 >2. `npm run build && npm run start`
 >3. backend is hosted on [http://localhost:8080](http://localhost:8080)
 
-## Testing the project
+## Testing the Project
 
-### Required Tools
+### Optional Tools
 1. [Postman](https://www.getpostman.com/downloads/)
 
-### Testing Visualization With Postman (For Backend Only)
+### Testing Visualization With Postman(For Backend Only)
 1. Run Postman
 2. Enter a `POST` Request to the url `http://localhost:8080/makeWorld`
 > **Make sure backend is running.**
