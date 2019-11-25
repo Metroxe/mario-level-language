@@ -22,14 +22,15 @@ Language for making Mario levels.
 
 ## Goal
 ### Visualization
-Our goal for this project was to create visual linting results using predefined eslint rules and display it in a fun and meaningful way. Therefore we decided to generate mario levels according to the linting errors output.
-We fetch a JavaScript project from github and output a mario level using our project from DSL.
+Our goal for this project was to create visual linting results using predefined linting rules and display it in a fun and meaningful way. We wanted to improve the monotunous task of reading endless console linting issues and instead give a general approach to identifiying the lint of a project. Instead of reading warning and errors line by line, we wanted to create a way to easily specifiy where in a project there are linting issues and to see if certain files/directories were worse than others. Therefore we decided to generate mario levels according to the linting errors output. We fetch a JavaScript project from github and output a mario level using our project from DSL.
 
 ### Analysis
-**Static Analysis:** We use ESLint to determine the linting errors in repository. ESLint is run through node and checks
-for predefined rules(e.g. enforce semicolons, a line being to long), so we are using static checks for each file in a project.
+**Static Analysis:** We determine the linting errors in repository following. Linting is run through node and checks
+for predefined rules(e.g. enforce semicolons, a line being to long), so we are using static checks for each file in a project. 
 <br/>
 **Meta Analysis:** We use meta analysis with the project structure and sizes of the project.
+
+Both of these methods are used as variables in determining the structure of the generated Mario Game and it's levels.
 
 ## Implementation and Roles
 #### 1. Fetching a Repository
@@ -38,18 +39,15 @@ Based on a github repository, fetch the repository and grab all the relevant con
 with files and directories structured the same way as the original project. This is used later for getting
 eslint results and generating levels. Delete all files once done with static checks of each file
 
-#### 2. Static Analysis through ESLint
+#### 2. Analysis of the Code
 Developed By: Tongtong Zhai and Huanxin Zhang<br/>
-Run ESLint to all the JavaScript files in the repository to get the errors, file size and number of lines of code.
-For each file grab all the errors, the error type, number of line the error occurred and generate a output for basing the
-mario levels off.
+Created and ran linting solution to all the JavaScript files in the repository to get the errors, file size and number of lines of code. For each file grab all the errors, the error type, number of line the error occurred and generate a output for basing the mario levels off. Organized all of the data into a readable format (JSON) to be used in the Visualization.
 
 #### 3. Data to Visualization
 Developed By: Christopher Powroznik<br/>
 Based on the output generated in the previous step, create a mario level for each file. The level will be dynamically created
 given the size of the file(determines how large the map will be), and create obstacles given the errors from the the ESLint
-results. The ESLint results can be classified and easy, medium hard level.  This determines the difficulty the obstacles are place
-in each map which reflects partially how bad the linting is done in a specific file. 
+results. The ESLint results can be classified and easy, medium hard level.  This determines the difficulty the obstacles are place in each map which reflects partially how bad the linting is done in a specific file. 
 After generating a map for each file, save the img with correct path to the directory and save it to the zip file.
 This language generator is done with our previous project, creating the mario dsl.
 
